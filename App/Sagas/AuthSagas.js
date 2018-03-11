@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects'
 import AuthActions from '../Redux/AuthRedux'
-import StartupActions from '../Redux/StartupRedux'
 import { NavigationActions } from 'react-navigation'
 import { AsyncStorage } from 'react-native'
 
@@ -24,7 +23,6 @@ export function * verifyToken (api, action) {
     if (response.ok) {
       setAuthHeaders(response.headers, api)
       persistAuthHeadersInDeviceStorage(response.headers)
-      yield put(StartupActions.startupSuccess(response.data))
       yield put(AuthActions.tokenSuccess(response.data))
       yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
     } else {
