@@ -14,17 +14,18 @@ const create = (baseURL = 'http://localhost:3000/api/') => {
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
 
-  const registerUser = (userAttributes) => api.post('auth', userAttributes)
-  const loginUser = (credentials) => api.post('auth/sign_in', credentials)
-  const verifyToken = (tokenParams) => api.get('auth/validate_token', tokenParams)
+  const registerVendor = (userAttributes) => api.post('vendor_auth', userAttributes)
+  const loginVendor = (credentials) => api.post('vendor_auth/sign_in', credentials)
+  const verifyToken = (tokenParams) => api.get('vendor_auth/validate_token', tokenParams)
 
   const config = api
   return {
     getRoot,
     getRate,
-    registerUser,
-    loginUser,
-    verifyToken
+    registerVendor,
+    loginVendor,
+    verifyToken,
+    config
   }
 }
 

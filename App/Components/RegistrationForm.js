@@ -17,6 +17,8 @@ class RegistrationForm extends React.Component {
     const { handleSubmit } = this.props;
     return (
       <View>
+        <FormLabel>Store name</FormLabel>
+        <Field name="name" component={renderInput} />
         <FormLabel>E-mail</FormLabel>
         <Field name="email" component={renderInput} />
         <FormLabel>Password</FormLabel>
@@ -31,7 +33,7 @@ class RegistrationForm extends React.Component {
 }
 
 RegistrationForm = reduxForm({
-  form: 'login'
+  form: 'register'
 })(RegistrationForm);
 
 export default RegistrationForm;

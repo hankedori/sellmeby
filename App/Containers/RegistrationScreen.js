@@ -8,7 +8,7 @@ import RegistrationForm from '../Components/RegistrationForm.js'
 import styles from './Styles/LaunchScreenStyles'
 
 class RegistrationScreen extends Component {
-  handleLoginSubmit = (values) => {
+  handleRegisterSubmit = (values) => {
     this.props.register(values)
   }
 
@@ -16,7 +16,7 @@ class RegistrationScreen extends Component {
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
-          <RegistrationForm onSubmit={this.handleLoginSubmit} />
+          <RegistrationForm onSubmit={this.handleRegisterSubmit} />
           <TouchableOpacity>
             <Text style={styles.sectionText}>Already a member? Login Here</Text>
           </TouchableOpacity>
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   register: (_) => {
-    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation))
+    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation, _.name))
   }
 })
 

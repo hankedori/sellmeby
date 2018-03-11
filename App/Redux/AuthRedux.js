@@ -4,14 +4,14 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  registrationRequest: ['email', 'password', 'password_confirmation'],
-  registrationSuccess: ['user'],
+  registrationRequest: ['email', 'password', 'password_confirmation', 'name'],
+  registrationSuccess: ['vendor'],
   registrationFailure: null,
   loginRequest: ['email', 'password'],
-  loginSuccess: ['user'],
+  loginSuccess: ['vendor'],
   loginFailure: null,
   tokenRequest: null,
-  tokenSuccess: ['user'],
+  tokenSuccess: ['vendor'],
   tokenFailure: null
 })
 
@@ -21,7 +21,7 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  current_user: {
+  current_vendor: {
     isSignedIn: false,
     isLoading: false,
     hasVerificationBeenAttempted: false,
@@ -41,8 +41,8 @@ export const registrationRequest = (state, { data }) =>
   state.merge({ registering: true })
 
 export const registrationSuccess = (state, action) => {
-  const { user } = action
-  return state.merge({ registering: false, registration_failed: null, current_user: user.data })
+  const { vendor } = action
+  return state.merge({ registering: false, registration_failed: null, current_vendor: vendor.data })
 }
 
 export const registrationFailure = state =>
@@ -52,8 +52,8 @@ export const loginRequest = (state, { data }) =>
   state.merge({ authenticating: true })
 
 export const loginSuccess = (state, action) => {
-  const { user } = action
-  return state.merge({ authenticating: false, authentication_failed: null, current_user: user.data })
+  const { vendor } = action
+  return state.merge({ authenticating: false, authentication_failed: null, current_vendor: vendor.data })
 }
 
 export const loginFailure = state =>
@@ -63,8 +63,8 @@ export const tokenRequest = state =>
   state.merge({ verifying_token: true })
 
 export const tokenSuccess = (state, action) => {
-  const { user } = action
-  return state.merge({ verifying_token: false, token_verification_failed: null, current_user: user.data })
+  const { vendor } = action
+  return state.merge({ verifying_token: false, token_verification_failed: null, current_vendor: vendor.data })
 }
 
 export const tokenFailure = state =>

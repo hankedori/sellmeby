@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
+import { reducer as formReducer } from 'redux-form'
 import configureStore from './CreateStore'
 import rootSaga from '../Sagas/'
 import ReduxPersist from '../Config/ReduxPersist'
@@ -8,7 +9,8 @@ import ReduxPersist from '../Config/ReduxPersist'
 export const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
   auth: require('./AuthRedux').reducer,
-  search: require('./SearchRedux').reducer
+  search: require('./SearchRedux').reducer,
+  form: formReducer
 })
 
 export default () => {

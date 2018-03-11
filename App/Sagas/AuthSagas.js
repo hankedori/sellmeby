@@ -26,7 +26,7 @@ export function * verifyToken (api, action) {
       persistAuthHeadersInDeviceStorage(response.headers)
       yield put(StartupActions.startupSuccess(response.data))
       yield put(AuthActions.tokenSuccess(response.data))
-      yield put({ type: 'NavigateDrawer' })
+      yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
     } else {
       yield put(AuthActions.tokenFailure())
       yield put(NavigationActions.navigate({ routeName: 'RegistrationScreen'}))
@@ -47,13 +47,13 @@ export function * login (api, action) {
     password
   }
 
-  const response = yield call(api.loginUser, data)
+  const response = yield call(api.loginVendor, data)
 
   if (response.ok) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
     yield put(AuthActions.loginSuccess(response.data))
-    yield put({ type: 'NavigateDiscovery' })
+    yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
   } else {
     yield put(AuthActions.loginFailure())
   }
@@ -61,31 +61,37 @@ export function * login (api, action) {
 
 export function * register (api, action) {
   const {
+    name,
     email,
     password,
     password_confirmation
   } = action
   const data = {
+    name,
     email,
     password,
     password_confirmation
   }
 
   // make the call to the api
-  const response = yield call(api.registerUser, data)
+  const response = yield call(api.registerVendor, data)
 
   // success?
   if (response.ok) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
     yield put(AuthActions.registrationSuccess(response.data))
-    yield put({ type: 'NavigateDiscovery' })
+    yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
   } else {
     yield put(AuthActions.registrationFailure())
   }
 }
 
 const setAuthHeaders = (headers, api) => {
+  console.tron.log({
+    headers: headers,
+    api: api
+  })
   authHeaderKeys.forEach((key: string) => {
     api.config.setHeader(key, headers[key])
   })
