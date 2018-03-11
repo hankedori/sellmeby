@@ -6,10 +6,12 @@ import DebugConfig from '../Config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../Redux/StartupRedux'
+import { AuthTypes } from '../Redux/AuthRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
+import { register, login, verifyToken } from './AuthSagas'
 
 /* ------------- API ------------- */
 
@@ -23,5 +25,9 @@ export default function * root () {
   yield all([
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
+    
+    takeLatest(AuthTypes.LOGIN_REQUEST, login, api),
+    takeLatest(AuthTypes.TOKEN_REQUEST, verifyToken, api),
+    takeLatest(AuthTypes.REGISTRATION_REQUEST, register, api)
   ])
 }
