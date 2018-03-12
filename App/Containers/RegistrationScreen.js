@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text, Image, View, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import AuthActions from '../Redux/AuthRedux'
-import RegistrationForm from '../Components/RegistrationForm.js'
+import RegistrationForm from '../Components/RegistrationForm'
 
 // Styles
 import styles from './Styles/LaunchScreenStyles'
