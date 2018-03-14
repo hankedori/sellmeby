@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import TimePicker from 'react-native-modal-datetime-picker';
 import {
@@ -15,8 +15,10 @@ import {
   Button,
   Row,
   Switch,
-  Divider
+  Divider,
+  ScrollView
 } from '@shoutem/ui';
+import RoundedButton from '../Components/RoundedButton'
 
 // Styles
 import styles from './Styles/EditHoursScreenStyle'
@@ -128,22 +130,22 @@ class EditHoursScreen extends Component {
 
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Title styleName="md-gutter-bottom">Please input your operational hours</Title>
-          {
-            this.state.days.map((day, i) => this.renderRow(day, i))
-          }
-          <TouchableOpacity onPress={this._showTimePicker}>
-            <Text>Show TimePicker</Text>
-          </TouchableOpacity>
-          <TimePicker
-            mode='time'
-            isVisible={this.state.isTimePickerVisible}
-            onConfirm={this._handleTimePicked}
-            onCancel={this._hideTimePicker}
-          />
-        </KeyboardAvoidingView>
+      <ScrollView>
+        <Tile>
+          <Title styleName="md-gutter-top">Please enter your hours of operation</Title>
+          <Subtitle styleName="md-gutter-bottom">This can be updated later</Subtitle>
+          <Divider styleName="line" />
+        </Tile>
+        {
+          this.state.days.map((day, i) => this.renderRow(day, i))
+        }
+        <TimePicker
+          mode='time'
+          isVisible={this.state.isTimePickerVisible}
+          onConfirm={this._handleTimePicked}
+          onCancel={this._hideTimePicker}
+        />
+        <RoundedButton text={'Continue'} styles={{marginTop: 10}} />
       </ScrollView>
     )
   }

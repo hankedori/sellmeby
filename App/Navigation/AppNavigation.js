@@ -16,7 +16,7 @@ const InitialSetupStack = StackNavigator({
 }, {
   headerMode: 'float',
   navigationOptions: {
-    headerTitle: "Setup your Buymeby listing"
+    headerTitle: "First time setup"
   }
 })
 
