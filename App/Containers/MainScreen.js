@@ -25,37 +25,24 @@ class MainScreen extends Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.tron.log({ response: response  });
+      let source = { uri: response.uri };
 
-      if (response.didCancel) {
-        console.tron.log('User cancelled logo picker');
+      var logo = {
+        uri: source.uri,
+        type: 'image/jpeg',
+        name: response.fileName
       }
-      else if (response.error) {
-        console.tron.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.tron.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        let source = { uri: response.uri };
 
-        var logo = {
-          uri: source.uri,
-          type: 'image/jpeg',
-          name: response.fileName
-        }
-
-        this.setState({
-          logo: logo
-        });
-      }
+      this.setState({
+        logo: logo
+      });
     });
   }
 
   render () {
     return (
       <View>
-        <Text>Logged in!</Text>
+        <Text>Welcome to Buymeby! To get started, please fill in the following information</Text>
 
         <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
           <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>

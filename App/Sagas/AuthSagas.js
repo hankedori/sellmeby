@@ -24,7 +24,7 @@ export function * verifyToken (api, action) {
       setAuthHeaders(response.headers, api)
       persistAuthHeadersInDeviceStorage(response.headers)
       yield put(AuthActions.tokenSuccess(response.data))
-      yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
+      yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
     } else {
       yield put(AuthActions.tokenFailure())
       yield put(NavigationActions.navigate({ routeName: 'RegistrationScreen'}))
@@ -51,7 +51,7 @@ export function * login (api, action) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
     yield put(AuthActions.loginSuccess(response.data))
-    yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
+    yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
   } else {
     yield put(AuthActions.loginFailure())
   }
@@ -79,7 +79,7 @@ export function * register (api, action) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
     yield put(AuthActions.registrationSuccess(response.data))
-    yield put(NavigationActions.navigate({ routeName: 'MainScreen'}))
+    yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
   } else {
     yield put(AuthActions.registrationFailure())
   }
