@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import TimePicker from 'react-native-modal-datetime-picker';
+import TimePicker from 'react-native-modal-datetime-picker'
 import {
   Heading,
   View,
@@ -17,8 +17,9 @@ import {
   Switch,
   Divider,
   ScrollView
-} from '@shoutem/ui';
+} from '@shoutem/ui'
 import RoundedButton from '../Components/RoundedButton'
+import { NavigationActions } from 'react-navigation'
 
 // Styles
 import styles from './Styles/EditHoursScreenStyle'
@@ -92,7 +93,7 @@ class EditHoursScreen extends Component {
     return (
       <View styleName="vertical">
         <TouchableOpacity onPress={this._showTimePicker.bind(this, index, key)}>
-          <Text>{value}</Text>
+          <Title>{value}</Title>
         </TouchableOpacity>
         <Caption>{label}</Caption>
       </View>
@@ -103,12 +104,12 @@ class EditHoursScreen extends Component {
     const switchOn = this.state.days[i].open
     return (
       <View key={i}>
-        <Row styleName="medium">
+        <Row styleName="large">
           <Text>{day.name}</Text>
           {switchOn ?
             this.renderTimePicker(day, i, 'open_time')
             :
-            <Title>Closed</Title>
+            <Subtitle>Closed</Subtitle>
           }
           {switchOn ?
             this.renderTimePicker(day, i, 'close_time')
@@ -131,11 +132,11 @@ class EditHoursScreen extends Component {
   render () {
     return (
       <ScrollView>
-        <Tile>
-          <Title styleName="md-gutter-top">Please enter your hours of operation</Title>
-          <Subtitle styleName="md-gutter-bottom">This can be updated later</Subtitle>
-          <Divider styleName="line" />
-        </Tile>
+        <Row styleName="large">
+          <Icon name="events" />
+          <Text>Please enter your hours of operation</Text>
+        </Row>
+        <Divider styleName="line" />
         {
           this.state.days.map((day, i) => this.renderRow(day, i))
         }
@@ -145,7 +146,7 @@ class EditHoursScreen extends Component {
           onConfirm={this._handleTimePicked}
           onCancel={this._hideTimePicker}
         />
-        <RoundedButton text={'Continue'} styles={{marginTop: 10}} />
+        <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this)} styles={{marginTop: 10}} />
       </ScrollView>
     )
   }
@@ -156,9 +157,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
+  submit: () => {
+    dispatch(NavigationActions.navigate({ routeName: 'LogoUploadScreen' }))
   }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditHoursScreen)

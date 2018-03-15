@@ -1,4 +1,5 @@
 import { StackNavigator, TabNavigator } from 'react-navigation'
+import EditLocationScreen from '../Containers/EditLocationScreen'
 import OrdersScreen from '../Containers/OrdersScreen'
 import StoreScreen from '../Containers/StoreScreen'
 import ProfileScreen from '../Containers/ProfileScreen'
@@ -11,6 +12,7 @@ import MainScreen from '../Containers/MainScreen'
 import styles from './Styles/NavigationStyles'
 
 const InitialSetupStack = StackNavigator({
+  EditLocationScreen: { screen: EditLocationScreen },
   EditHoursScreen: { screen: EditHoursScreen },
   LogoUploadScreen: { screen: LogoUploadScreen }
 }, {
