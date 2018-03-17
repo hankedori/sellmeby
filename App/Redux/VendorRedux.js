@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  logoRequest: ['logo'],
+  logoRequest: ['logo', 'nextRoute'],
   logoSuccess: ['logo_src'],
   failure: null,
   update: ['params', 'nextRoute'],

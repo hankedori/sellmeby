@@ -27,7 +27,8 @@ class LogoUploadScreen extends Component {
   }
 
   state = {
-    logo: require('../Images/logo_missing.png')
+    logo: require('../Images/logo_missing.png'),
+    nextRoute: 'MainTabNav'
   };
 
   selectPhotoTapped() {
@@ -73,7 +74,7 @@ class LogoUploadScreen extends Component {
               </View>
             </TouchableOpacity>
           </Row>
-          <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo)} styles={{marginTop: 10}} />
+          <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo, this.state.nextRoute)} styles={{marginTop: 10}} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -85,7 +86,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  upload_logo: (logo) => dispatch(VendorActions.logoRequest(logo))
+  upload_logo: (logo, nextRoute) => dispatch(VendorActions.logoRequest(logo, nextRoute))
 })
 
 const styles = StyleSheet.create({

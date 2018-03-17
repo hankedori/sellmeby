@@ -4,6 +4,7 @@ import { NavigationActions } from 'react-navigation'
 
 export function * uploadLogo (api, action) {
   const { logo } = action
+  const { nextRoute } = action
   const form = new FormData()
 
   form.append('logo', logo)
@@ -12,7 +13,10 @@ export function * uploadLogo (api, action) {
   }
   const response = yield call(api.uploadLogo, form, headers)
 
-  console.tron.log(response)
+  if(response.ok) {
+    yield put(VendorActions.logoSuccess(response.data))
+    yield put(NavigationActions.navigate({ routeName: nextRoute}))
+  }
 }
 
 export function * updateVendor (api, action) {

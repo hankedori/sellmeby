@@ -24,10 +24,37 @@ const InitialSetupStack = StackNavigator({
   }
 })
 
-const MainTabNav = TabNavigator({
-  ProfileScreen: { screen: ProfileScreen },
+const ProfileStack = StackNavigator({
+  ProfileScreen: { screen: ProfileScreen }
+}, {
+  headerMode: 'float',
+  navigationOptions: {
+    headerTitle: "Profile"
+  }
+})
+
+const StoreStack = StackNavigator({
   StoreScreen: { screen: StoreScreen },
+}, {
+  headerMode: 'float',
+  navigationOptions: {
+    headerTitle: "Store"
+  }
+})
+
+const OrdersStack = StackNavigator({
   OrdersScreen: { screen: OrdersScreen }
+}, {
+  headerMode: 'float',
+  navigationOptions: {
+    headerTitle: "Orders"
+  }
+})
+
+const MainTabNav = TabNavigator({
+  ProfileScreen: { screen: ProfileStack },
+  StoreScreen: { screen: StoreStack },
+  OrdersScreen: { screen: OrdersStack }
 })
 
 // Manifest of possible screens

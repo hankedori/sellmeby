@@ -24,7 +24,11 @@ export function * verifyToken (api, action) {
       setAuthHeaders(response.headers, api)
       persistAuthHeadersInDeviceStorage(response.headers)
       yield put(AuthActions.tokenSuccess(response.data))
-      yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
+      if (response.data.data.setup_complete) {
+        yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
+      } else {
+        yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
+      }
     } else {
       yield put(AuthActions.tokenFailure())
       yield put(NavigationActions.navigate({ routeName: 'RegistrationScreen'}))

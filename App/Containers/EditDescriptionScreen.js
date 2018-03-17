@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
-import { NavigationActions } from 'react-navigation'
+import VendorActions from '../Redux/VendorRedux'
 import {
   Heading,
   View,
@@ -28,7 +28,10 @@ import styles from './Styles/EditDescriptionScreenStyle'
 
 class EditDescriptionScreen extends Component {
   state = {
-    text: 'Shop description..'
+    params: {
+      description: 'Shop description..'
+    },
+    nextRoute: 'LogoUploadScreen'
   }
 
   render () {
@@ -44,11 +47,11 @@ class EditDescriptionScreen extends Component {
             editable = {true}
             multiline = {true}
             numberOfLines = {10}
-            onChangeText={(text) => this.setState({text})}
-            value={this.state.text}
+            onChangeText={(description) => this.setState({ params: {description} })}
+            value={this.state.params.description}
             style={{ height: 300 }}
           />
-          <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this)} styles={{marginTop: 10}} />
+          <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -61,8 +64,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  submit: () => {
-    dispatch(NavigationActions.navigate({ routeName: 'LogoUpload' }))
+  submit: (params, nextRoute) => {
+    dispatch(VendorActions.update(params, nextRoute))
   }
 })
 
