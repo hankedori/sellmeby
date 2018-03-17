@@ -18,6 +18,8 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
   const loginVendor = (credentials) => api.post('auth/sign_in', credentials)
   const verifyToken = (tokenParams) => api.get('auth/validate_token', tokenParams)
 
+  const updateVendor = (params) => api.patch('vendors', params)
+  const updateHours = (hours) => api.post('update_hours', hours)
   const uploadLogo = (logo, headers) => api.post('upload_logo', logo, { headers })
 
   const config = api
@@ -28,6 +30,8 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
     loginVendor,
     verifyToken,
     uploadLogo,
+    updateVendor,
+    updateHours,
     config
   }
 }

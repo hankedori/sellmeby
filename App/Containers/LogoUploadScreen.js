@@ -1,6 +1,25 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
+import RoundedButton from '../Components/RoundedButton'
+import { NavigationActions } from 'react-navigation'
+import {
+  Heading,
+  View,
+  Tile,
+  Text,
+  Title,
+  Subtitle,
+  Caption,
+  Icon,
+  Overlay,
+  Button,
+  Row,
+  Switch,
+  Divider,
+  ScrollView,
+  TextInput
+} from '@shoutem/ui'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -8,11 +27,28 @@ import { connect } from 'react-redux'
 import styles from './Styles/LogoUploadScreenStyle'
 
 class LogoUploadScreen extends Component {
+  state = {
+    text: 'Shop description..'
+  }
+
   render () {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <KeyboardAvoidingView behavior='position'>
-          <Text>LogoUploadScreen</Text>
+          <Row styleName="large">
+            <Icon name="social-wall" />
+            <Text>Please enter a description for your shop</Text>
+          </Row>
+          <Divider styleName="line" />
+          <TextInput // Inherit any props passed to it; e.g., multiline, numberOfLines below
+            editable = {true}
+            multiline = {true}
+            numberOfLines = {10}
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
+            style={{ height: 300 }}
+          />
+          <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this)} styles={{marginTop: 10}} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -24,9 +60,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
+  submit: () => {
+    dispatch(NavigationActions.navigate({ routeName: 'EditHoursScreen' }))
   }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoUploadScreen)

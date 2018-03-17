@@ -19,57 +19,60 @@ import {
   ScrollView
 } from '@shoutem/ui'
 import RoundedButton from '../Components/RoundedButton'
-import { NavigationActions } from 'react-navigation'
+import VendorActions from '../Redux/VendorRedux'
 
 // Styles
 import styles from './Styles/EditHoursScreenStyle'
 
 class EditHoursScreen extends Component {
   state = {
-    days: [
-      {
-        name: 'Monday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-      {
-        name: 'Tuesday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-      {
-        name: 'Wednesday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-      {
-        name: 'Thursday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-      {
-        name: 'Friday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-      {
-        name: 'Saturday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-      {
-        name: 'Sunday',
-        open: false,
-        open_time: null,
-        close_time: null
-      },
-    ],
+    params: {
+      days: [
+        {
+          name: 'Monday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+        {
+          name: 'Tuesday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+        {
+          name: 'Wednesday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+        {
+          name: 'Thursday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+        {
+          name: 'Friday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+        {
+          name: 'Saturday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+        {
+          name: 'Sunday',
+          open: false,
+          open_time: null,
+          close_time: null
+        },
+      ],
+      nextRoute: 'EditDescriptionScreen'
+    },
     isTimePickerVisible: false,
     pickingIndex: null,
     pickingKey: null
@@ -80,7 +83,7 @@ class EditHoursScreen extends Component {
   _hideTimePicker = () => this.setState({ isTimePickerVisible: false, pickingIndex: null, pickingKey: null });
 
   _handleTimePicked = (date) => {
-    let days = [...this.state.days];
+    let days = [...this.state.params.days];
     days[this.state.pickingIndex][this.state.pickingKey] = date
     this.setState({ days })
     this._hideTimePicker();
@@ -101,7 +104,7 @@ class EditHoursScreen extends Component {
   }
 
   renderRow(day, i) {
-    const switchOn = this.state.days[i].open
+    const switchOn = this.state.params.days[i].open
     return (
       <View key={i}>
         <Row styleName="large">
@@ -118,7 +121,7 @@ class EditHoursScreen extends Component {
           }
           <Switch
             onValueChange={value => {
-              let days = [...this.state.days];
+              let days = [...this.state.params.days];
               days[i].open = value
               this.setState({ days })
             }}
@@ -138,7 +141,7 @@ class EditHoursScreen extends Component {
         </Row>
         <Divider styleName="line" />
         {
-          this.state.days.map((day, i) => this.renderRow(day, i))
+          this.state.params.days.map((day, i) => this.renderRow(day, i))
         }
         <TimePicker
           mode='time'
@@ -146,7 +149,7 @@ class EditHoursScreen extends Component {
           onConfirm={this._handleTimePicked}
           onCancel={this._hideTimePicker}
         />
-        <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this)} styles={{marginTop: 10}} />
+        <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params)} styles={{marginTop: 10}} />
       </ScrollView>
     )
   }
@@ -158,8 +161,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  submit: () => {
-    dispatch(NavigationActions.navigate({ routeName: 'LogoUploadScreen' }))
+  submit: (params) => {
+    dispatch(VendorActions.updateHours(params))
   }
 })
 

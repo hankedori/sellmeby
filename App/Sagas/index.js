@@ -13,7 +13,7 @@ import { VendorTypes } from '../Redux/VendorRedux'
 
 import { startup } from './StartupSagas'
 import { register, login, verifyToken } from './AuthSagas'
-import { uploadLogo } from './VendorSagas'
+import { uploadLogo, updateVendor, updateHours } from './VendorSagas'
 
 /* ------------- API ------------- */
 
@@ -32,6 +32,8 @@ export default function * root () {
     takeLatest(AuthTypes.TOKEN_REQUEST, verifyToken, api),
     takeLatest(AuthTypes.REGISTRATION_REQUEST, register, api),
 
-    takeLatest(VendorTypes.LOGO_REQUEST, uploadLogo, api)
+    takeLatest(VendorTypes.LOGO_REQUEST, uploadLogo, api),
+    takeLatest(VendorTypes.UPDATE, updateVendor, api),
+    takeLatest(VendorTypes.UPDATE_HOURS, updateHours, api)
   ])
 }

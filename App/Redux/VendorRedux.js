@@ -6,7 +6,10 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   logoRequest: ['logo'],
   logoSuccess: ['logo_src'],
-  logoFailure: null,
+  failure: null,
+  update: ['params', 'nextRoute'],
+  updateSuccess: ['vendor'],
+  updateHours: ['params', 'nextRoute']
 })
 
 export const VendorTypes = Types
@@ -17,8 +20,9 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   logo: null,
   uploading: false,
-  logo_failed: false,
-  logo_src: null
+  failed: false,
+  logo_src: null,
+  vendor: null
 })
 
 /* ------------- Reducers ------------- */
@@ -28,16 +32,32 @@ export const logoRequest = (state, { data }) =>
 
 export const logoSuccess = (state, action) => {
   const { logo_src } = action
-  return state.merge({ uploading: false, logo_failed: null, logo_src })
+  return state.merge({ uploading: false, failed: null, logo_src })
 }
 
-export const logoFailure = state =>
-  state.merge({ uploading: false, logo_failed: true })
+export const failure = state =>
+  state.merge({ uploading: false, failed: true })
+
+
+export const update = (state, { data }) =>
+  state.merge({ uploading: true })
+
+
+export const updateHours = (state, { data }) =>
+  state.merge({ uploading: true })
+
+export const updateSuccess = (state, action) => {
+  const { vendor } = action
+  return state.merge({ uploading: false, failed: null, vendor })
+}
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGO_REQUEST]: logoRequest,
   [Types.LOGO_SUCCESS]: logoSuccess,
-  [Types.LOGO_FAILURE]: logoFailure,
+  [Types.FAILURE]: failure,
+  [Types.UPDATE]: update,
+  [Types.UPDATE_HOURS]: update,
+  [Types.UPDATE_SUCCESS]: updateSuccess
 })
