@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView } from 'react-native'
+import { Image, TouchableOpacity, KeyboardAvoidingView, StyleSheet, PixelRatio, View } from 'react-native'
 import { connect } from 'react-redux'
+import VendorActions from '../Redux/VendorRedux'
+import ImagePicker from 'react-native-image-picker'
 import RoundedButton from '../Components/RoundedButton'
-import { NavigationActions } from 'react-navigation'
 import {
   Heading,
-  View,
   Tile,
   Text,
   Title,
@@ -20,15 +20,39 @@ import {
   ScrollView,
   TextInput
 } from '@shoutem/ui'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
-// Styles
-import styles from './Styles/LogoUploadScreenStyle'
 
 class LogoUploadScreen extends Component {
+  handleLoginSubmit = (values) => {
+    this.props.register(values)
+  }
+
   state = {
-    text: 'Shop description..'
+    logo: require('../Images/logo_missing.png')
+  };
+
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      let source = { uri: response.uri };
+
+      var logo = {
+        uri: source.uri,
+        type: 'image/jpeg',
+        name: response.fileName
+      }
+
+      this.setState({
+        logo: logo
+      });
+    });
   }
 
   render () {
@@ -36,19 +60,20 @@ class LogoUploadScreen extends Component {
       <ScrollView>
         <KeyboardAvoidingView behavior='position'>
           <Row styleName="large">
-            <Icon name="social-wall" />
-            <Text>Please enter a description for your shop</Text>
+            <Icon name="photo" />
+            <Text>Please upload a logo</Text>
           </Row>
           <Divider styleName="line" />
-          <TextInput // Inherit any props passed to it; e.g., multiline, numberOfLines below
-            editable = {true}
-            multiline = {true}
-            numberOfLines = {10}
-            onChangeText={(text) => this.setState({text})}
-            value={this.state.text}
-            style={{ height: 300 }}
-          />
-          <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this)} styles={{marginTop: 10}} />
+          <Row>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+              { this.state.logo === null ? <Text>Select a Photo</Text> :
+                <Image style={styles.avatar} source={this.state.logo} />
+              }
+              </View>
+            </TouchableOpacity>
+          </Row>
+          <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo)} styles={{marginTop: 10}} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -56,14 +81,31 @@ class LogoUploadScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-  }
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  submit: () => {
-    dispatch(NavigationActions.navigate({ routeName: 'EditHoursScreen' }))
-  }
+  upload_logo: (logo) => dispatch(VendorActions.logoRequest(logo))
 })
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1 / PixelRatio.get(),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  avatar: {
+    borderRadius: 75,
+    width: 150,
+    height: 150
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoUploadScreen)
