@@ -29,7 +29,7 @@ import styles from './Styles/EditDescriptionScreenStyle'
 class EditDescriptionScreen extends Component {
   state = {
     params: {
-      description: 'Shop description..'
+      description: ''
     },
     nextRoute: 'LogoUploadScreen'
   }
@@ -44,6 +44,7 @@ class EditDescriptionScreen extends Component {
           </Row>
           <Divider styleName="line" />
           <TextInput // Inherit any props passed to it; e.g., multiline, numberOfLines below
+            placeholder={'Shop description..'}
             editable = {true}
             multiline = {true}
             numberOfLines = {10}

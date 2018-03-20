@@ -22,6 +22,8 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
   const updateHours = (hours) => api.post('update_hours', hours)
   const uploadLogo = (logo, headers) => api.post('upload_logo', logo, { headers })
 
+  const createItem = (params, headers) => api.post('items', params, { headers })
+
   const config = api
   return {
     getRoot,
@@ -32,6 +34,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
     uploadLogo,
     updateVendor,
     updateHours,
+    createItem,
     config
   }
 }

@@ -1,4 +1,5 @@
 import { StackNavigator, TabNavigator } from 'react-navigation'
+import AddItemScreen from '../Containers/AddItemScreen'
 import EditDescriptionScreen from '../Containers/EditDescriptionScreen'
 import EditLocationScreen from '../Containers/EditLocationScreen'
 import OrdersScreen from '../Containers/OrdersScreen'
@@ -25,7 +26,7 @@ const InitialSetupStack = StackNavigator({
 })
 
 const ProfileStack = StackNavigator({
-  ProfileScreen: { screen: ProfileScreen }
+  ProfileScreen: { screen: ProfileScreen },
 }, {
   headerMode: 'float',
   navigationOptions: {
@@ -35,6 +36,7 @@ const ProfileStack = StackNavigator({
 
 const StoreStack = StackNavigator({
   StoreScreen: { screen: StoreScreen },
+  AddItemScreen: { screen: AddItemScreen },
 }, {
   headerMode: 'float',
   navigationOptions: {

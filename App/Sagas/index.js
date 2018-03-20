@@ -8,12 +8,14 @@ import DebugConfig from '../Config/DebugConfig'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { AuthTypes } from '../Redux/AuthRedux'
 import { VendorTypes } from '../Redux/VendorRedux'
+import { ItemTypes } from '../Redux/ItemRedux'
 
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
 import { register, login, verifyToken } from './AuthSagas'
 import { uploadLogo, updateVendor, updateHours } from './VendorSagas'
+import { createItem } from './ItemSagas'
 
 /* ------------- API ------------- */
 
@@ -34,6 +36,8 @@ export default function * root () {
 
     takeLatest(VendorTypes.LOGO_REQUEST, uploadLogo, api),
     takeLatest(VendorTypes.UPDATE, updateVendor, api),
-    takeLatest(VendorTypes.UPDATE_HOURS, updateHours, api)
+    takeLatest(VendorTypes.UPDATE_HOURS, updateHours, api),
+
+    takeLatest(ItemTypes.CREATE_REQUEST, createItem, api)
   ])
 }

@@ -27,7 +27,7 @@ export function * verifyToken (api, action) {
       if (response.data.data.setup_complete) {
         yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
       } else {
-        yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
+        yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
       }
     } else {
       yield put(AuthActions.tokenFailure())

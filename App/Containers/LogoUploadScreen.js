@@ -27,7 +27,7 @@ class LogoUploadScreen extends Component {
   }
 
   state = {
-    logo: require('../Images/logo_missing.png'),
+    logo: require('../Images/press_to_upload.png'),
     nextRoute: 'MainTabNav'
   };
 
