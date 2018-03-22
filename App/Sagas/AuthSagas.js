@@ -93,10 +93,6 @@ export function * register (api, action) {
 }
 
 const setAuthHeaders = (headers, api) => {
-  console.tron.log({
-    headers: headers,
-    api: api
-  })
   authHeaderKeys.forEach((key: string) => {
     api.config.setHeader(key, headers[key])
   })

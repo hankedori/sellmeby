@@ -1,4 +1,4 @@
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import AddItemScreen from '../Containers/AddItemScreen'
 import EditDescriptionScreen from '../Containers/EditDescriptionScreen'
 import EditLocationScreen from '../Containers/EditLocationScreen'
@@ -59,6 +59,8 @@ const MainTabNav = TabNavigator({
   OrdersStack: { screen: OrdersStack }
 }, {
   initialRouteName: 'StoreStack',
+  tabBarComponent: TabBarBottom,
+  tabBarPosition: 'bottom'
 })
 
 // Manifest of possible screens
