@@ -2,6 +2,19 @@ import { call, put } from 'redux-saga/effects'
 import VendorActions from '../Redux/VendorRedux'
 import { NavigationActions } from 'react-navigation'
 
+export function * getVendor (api, action) {
+  const { vendor } = action
+  // make the call to the api
+  const response = yield call(api.getVendor)
+
+  // success?
+  if (response.ok) {
+    yield put(VendorActions.vendorSuccess(response.data.vendor, response.data.items))
+  } else {
+    yield put(VendorActions.failure())
+  }
+}
+
 export function * uploadLogo (api, action) {
   const { logo } = action
   const { nextRoute } = action

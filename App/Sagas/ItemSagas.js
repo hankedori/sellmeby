@@ -1,5 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import ItemActions from '../Redux/ItemRedux'
+import VendorActions from '../Redux/VendorRedux'
+import { NavigationActions } from 'react-navigation'
 
 export function * createItem (api, action) {
   const { data } = action
@@ -20,6 +22,8 @@ export function * createItem (api, action) {
 
   if (response.ok) {
     yield put(ItemActions.success(response.data))
+    yield put(VendorActions.vendorRequest())
+    yield put(NavigationActions.navigate({ routeName: 'StoreScreen' }))
   } else {
     yield put(ItemActions.failure())
   }

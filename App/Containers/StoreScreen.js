@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import ItemList from '../Components/ItemList'
 import {
   Button,
   Text,
@@ -14,7 +15,8 @@ class StoreScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior='position'>
-          <Button onPress={this.props.addItem.bind(this)}>
+          <ItemList />
+          <Button styleName="md-gutter-top" onPress={this.props.addItem.bind(this)}>
             <Icon name="plus-button" />
             <Text>ADD ITEM</Text>
           </Button>

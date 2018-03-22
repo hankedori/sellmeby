@@ -54,9 +54,11 @@ const OrdersStack = StackNavigator({
 })
 
 const MainTabNav = TabNavigator({
-  ProfileScreen: { screen: ProfileStack },
-  StoreScreen: { screen: StoreStack },
-  OrdersScreen: { screen: OrdersStack }
+  ProfileStack: { screen: ProfileStack },
+  StoreStack: { screen: StoreStack },
+  OrdersStack: { screen: OrdersStack }
+}, {
+  initialRouteName: 'StoreStack',
 })
 
 // Manifest of possible screens

@@ -1,7 +1,7 @@
 import apisauce from 'apisauce'
 
-const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
-// const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
+// const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
+const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
 
   const api = apisauce.create({
     baseURL,
@@ -18,6 +18,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
   const loginVendor = (credentials) => api.post('auth/sign_in', credentials)
   const verifyToken = (tokenParams) => api.get('auth/validate_token', tokenParams)
 
+  const getVendor = () => api.get('vendors')
   const updateVendor = (params) => api.patch('vendors', params)
   const updateHours = (hours) => api.post('update_hours', hours)
   const uploadLogo = (logo, headers) => api.post('upload_logo', logo, { headers })
@@ -31,6 +32,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
     registerVendor,
     loginVendor,
     verifyToken,
+    getVendor,
     uploadLogo,
     updateVendor,
     updateHours,

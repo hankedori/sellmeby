@@ -4,6 +4,8 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
+  vendorRequest: null,
+  vendorSuccess: ['vendor', 'items'],
   logoRequest: ['logo', 'nextRoute'],
   logoSuccess: ['logo_src'],
   failure: null,
@@ -18,14 +20,24 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
+  fetching: false,
   logo: null,
   uploading: false,
   failed: false,
   logo_src: null,
-  vendor: null
+  vendor: null,
+  items: []
 })
 
 /* ------------- Reducers ------------- */
+export const request = (state) =>
+  state.merge({ fetching: true, payload: null })
+
+export const success = (state, action) => {
+  const { vendor } = action
+  const { items } = action
+  return state.merge({ fetching: false, vendor, items })
+}
 
 export const logoRequest = (state, { data }) =>
   state.merge({ uploading: true })
@@ -54,6 +66,8 @@ export const updateSuccess = (state, action) => {
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
+  [Types.VENDOR_REQUEST]: request,
+  [Types.VENDOR_SUCCESS]: success,
   [Types.LOGO_REQUEST]: logoRequest,
   [Types.LOGO_SUCCESS]: logoSuccess,
   [Types.FAILURE]: failure,

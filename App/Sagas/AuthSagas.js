@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import AuthActions from '../Redux/AuthRedux'
+import VendorActions from '../Redux/VendorRedux'
 import { NavigationActions } from 'react-navigation'
 import { AsyncStorage } from 'react-native'
 
@@ -25,8 +26,10 @@ export function * verifyToken (api, action) {
       persistAuthHeadersInDeviceStorage(response.headers)
       yield put(AuthActions.tokenSuccess(response.data))
       if (response.data.data.setup_complete) {
+        yield put(VendorActions.vendorRequest())
         yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
       } else {
+        yield put(VendorActions.vendorRequest())
         yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
       }
     } else {
