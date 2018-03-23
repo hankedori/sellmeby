@@ -9,7 +9,7 @@ export function * getVendor (api, action) {
 
   // success?
   if (response.ok) {
-    yield put(VendorActions.vendorSuccess(response.data.vendor, response.data.items))
+    yield put(VendorActions.vendorSuccess(response.data.vendor, response.data.items, response.data.hours))
   } else {
     yield put(VendorActions.failure())
   }

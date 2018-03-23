@@ -27,6 +27,10 @@ const InitialSetupStack = StackNavigator({
 
 const ProfileStack = StackNavigator({
   ProfileScreen: { screen: ProfileScreen },
+  EditLocationScreen: { screen: EditLocationScreen },
+  EditHoursScreen: { screen: EditHoursScreen },
+  EditDescriptionScreen: { screen: EditDescriptionScreen },
+  LogoUploadScreen: { screen: LogoUploadScreen }
 }, {
   headerMode: 'float',
   navigationOptions: {
