@@ -39,8 +39,19 @@ export function * updateVendor (api, action) {
   const response = yield call(api.updateVendor, params)
 
   if(response.ok) {
-    yield put(VendorActions.updateSuccess(response.data))
-    yield put(NavigationActions.navigate({ routeName: nextRoute}))
+    yield put(VendorActions.updateSuccess(response.data.vendor, response.data.items, response.data.hours))
+    if (response.data.vendor.setup_complete) {
+      yield put(NavigationActions.reset(
+       {
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'ProfileScreen'})
+          ]
+        }
+      ));
+    } else {
+      yield put(NavigationActions.navigate({ routeName: nextRoute}))
+    }
   }
 }
 
@@ -51,7 +62,18 @@ export function * updateHours (api, action) {
   const response = yield call(api.updateHours, params)
 
   if(response.ok) {
-    yield put(VendorActions.updateSuccess(response.data))
-    yield put(NavigationActions.navigate({ routeName: nextRoute}))
+    yield put(VendorActions.updateSuccess(response.data.vendor, response.data.items, response.data.hours))
+    if (response.data.vendor.setup_complete) {
+      yield put(NavigationActions.reset(
+       {
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'ProfileScreen'})
+          ]
+        }
+      ));
+    } else {
+      yield put(NavigationActions.navigate({ routeName: nextRoute}))
+    }
   }
 }

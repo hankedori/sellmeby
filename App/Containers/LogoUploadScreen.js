@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, TouchableOpacity, KeyboardAvoidingView, StyleSheet, PixelRatio, View } from 'react-native'
+import { Image, TouchableOpacity, KeyboardAvoidingView, StyleSheet, PixelRatio } from 'react-native'
 import { connect } from 'react-redux'
 import VendorActions from '../Redux/VendorRedux'
 import ImagePicker from 'react-native-image-picker'
@@ -18,7 +18,8 @@ import {
   Switch,
   Divider,
   ScrollView,
-  TextInput
+  TextInput,
+  View
 } from '@shoutem/ui'
 
 class LogoUploadScreen extends Component {
@@ -27,7 +28,7 @@ class LogoUploadScreen extends Component {
   }
 
   state = {
-    logo: require('../Images/press_to_upload.png'),
+    logo: this.props.logo_url ? {uri: this.props.logo_url} : require('../Images/press_to_upload.png'),
     nextRoute: 'MainTabNav'
   };
 
@@ -59,30 +60,32 @@ class LogoUploadScreen extends Component {
   render () {
     return (
       <ScrollView>
-        <KeyboardAvoidingView behavior='position'>
+        <ScrollView>
           <Row styleName="large">
             <Icon name="photo" />
             <Text>Please upload a logo</Text>
           </Row>
           <Divider styleName="line" />
-          <Row>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+            <Tile>
+              <View styleName='center md-gutter-top md-gutter-bottom'>
               { this.state.logo === null ? <Text>Select a Photo</Text> :
                 <Image style={styles.avatar} source={this.state.logo} />
               }
               </View>
-            </TouchableOpacity>
-          </Row>
+            </Tile>
+          </TouchableOpacity>
           <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo, this.state.nextRoute)} styles={{marginTop: 10}} />
-        </KeyboardAvoidingView>
+        </ScrollView>
       </ScrollView>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    logo_url: state.vendor.vendor.logo_url,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({

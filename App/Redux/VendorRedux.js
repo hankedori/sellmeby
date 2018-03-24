@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   logoSuccess: ['logo_src'],
   failure: null,
   update: ['params', 'nextRoute'],
-  updateSuccess: ['vendor'],
+  updateSuccess: ['vendor', 'items', 'hours'],
   updateHours: ['params', 'nextRoute']
 })
 
@@ -29,6 +29,8 @@ export const INITIAL_STATE = Immutable({
     name: null,
     logo_url: null,
     description: null,
+    latitude: null,
+    longitude: null,
     place_id: null,
     address: null
   },
@@ -41,9 +43,7 @@ export const request = (state) =>
   state.merge({ fetching: true, payload: null })
 
 export const success = (state, action) => {
-  const { vendor } = action
-  const { items } = action
-  const { hours } = action
+  const { vendor, items, hours } = action
   return state.merge({ fetching: false, vendor, items, hours })
 }
 
@@ -67,8 +67,8 @@ export const updateHours = (state, { data }) =>
   state.merge({ uploading: true })
 
 export const updateSuccess = (state, action) => {
-  const { vendor } = action
-  return state.merge({ uploading: false, failed: null, vendor })
+  const { vendor, items, hours } = action
+  return state.merge({ uploading: false, failed: null, vendor, items, hours })
 }
 
 /* ------------- Hookup Reducers To Types ------------- */

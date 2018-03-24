@@ -29,7 +29,7 @@ import styles from './Styles/EditDescriptionScreenStyle'
 class EditDescriptionScreen extends Component {
   state = {
     params: {
-      description: ''
+      description: this.props.description || ''
     },
     nextRoute: 'LogoUploadScreen'
   }
@@ -37,7 +37,7 @@ class EditDescriptionScreen extends Component {
   render () {
     return (
       <ScrollView>
-        <KeyboardAvoidingView behavior='position'>
+        <ScrollView>
           <Row styleName="large">
             <Icon name="social-wall" />
             <Text>Please enter a description for your shop</Text>
@@ -53,7 +53,7 @@ class EditDescriptionScreen extends Component {
             style={{ height: 300 }}
           />
           <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
-        </KeyboardAvoidingView>
+        </ScrollView>
       </ScrollView>
     )
   }
@@ -61,6 +61,7 @@ class EditDescriptionScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    description: state.vendor.vendor.description
   }
 }
 

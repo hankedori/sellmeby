@@ -30,7 +30,7 @@ export function * verifyToken (api, action) {
         yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
       } else {
         yield put(VendorActions.vendorRequest())
-        yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
+        yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
       }
     } else {
       yield put(AuthActions.tokenFailure())

@@ -31,10 +31,10 @@ import styles from './Styles/EditLocationScreenStyle'
 class EditLocationScreen extends Component {
   state = {
     params: {
-      latitude: null,
-      longitude: null,
-      place_id: null,
-      address: null
+      latitude: this.props.latitude,
+      longitude: this.props.longitude,
+      place_id: this.props.place_id,
+      address: this.props.address
     },
     nextRoute: 'EditHoursScreen'
   }
@@ -101,7 +101,7 @@ class EditLocationScreen extends Component {
   render () {
     return (
       <ScrollView>
-        <KeyboardAvoidingView>
+        <ScrollView>
           <Row styleName="large">
             <Icon name="pin" />
             <Text>Please enter the address or location of your shop</Text>
@@ -112,7 +112,7 @@ class EditLocationScreen extends Component {
             this.renderAutoComplete()
           }
           <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
-        </KeyboardAvoidingView>
+        </ScrollView>
       </ScrollView>
     )
   }
@@ -121,7 +121,11 @@ class EditLocationScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     show_spinner: state.vendor.uploading,
-    failure: state.vendor.failed
+    failure: state.vendor.failed,
+    address: state.vendor.vendor.address,
+    latitude: state.vendor.vendor.latitude,
+    longitude: state.vendor.vendor.longitude,
+    place_id: state.vendor.vendor.place_id
   }
 }
 

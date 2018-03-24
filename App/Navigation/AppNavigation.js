@@ -1,3 +1,4 @@
+import React from 'react'
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import AddItemScreen from '../Containers/AddItemScreen'
 import EditDescriptionScreen from '../Containers/EditDescriptionScreen'
@@ -10,6 +11,7 @@ import LaunchScreen from '../Containers/LaunchScreen'
 import RegistrationScreen from '../Containers/RegistrationScreen'
 import EditHoursScreen from '../Containers/EditHoursScreen'
 import MainScreen from '../Containers/MainScreen'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './Styles/NavigationStyles'
 
@@ -58,13 +60,46 @@ const OrdersStack = StackNavigator({
 })
 
 const MainTabNav = TabNavigator({
-  ProfileStack: { screen: ProfileStack },
-  StoreStack: { screen: StoreStack },
-  OrdersStack: { screen: OrdersStack }
+  ProfileStack: {
+    screen: ProfileStack,
+    navigationOptions: {
+      title: 'Profile',
+      tabBarIcon: ({ focused }) => (
+        focused ?
+        <Icon name="face-profile" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#000" /> :
+        <Icon name="face-profile" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#d3d3d3" />
+      )
+    }
+  },
+  StoreStack: {
+    screen: StoreStack,
+    navigationOptions: {
+      title: 'Store',
+      tabBarIcon: ({ focused }) => (
+        focused ?
+        <Icon name="store" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#000" /> :
+        <Icon name="store" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#d3d3d3" />
+      )
+    }
+  },
+  OrdersStack: {
+   screen: OrdersStack,
+   navigationOptions: {
+     title: 'Orders',
+     tabBarIcon: ({ focused }) => (
+       focused ?
+       <Icon name="clipboard-text" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#000" /> :
+       <Icon name="clipboard-text" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#d3d3d3" />
+     )
+   }
+  }
 }, {
-  initialRouteName: 'StoreStack',
+  initialRouteName: 'ProfileStack',
   tabBarComponent: TabBarBottom,
-  tabBarPosition: 'bottom'
+  tabBarPosition: 'bottom',
+  tabBarOptions: {
+    showLabel: false
+  }
 })
 
 // Manifest of possible screens

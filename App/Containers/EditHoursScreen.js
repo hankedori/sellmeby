@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import TimePicker from 'react-native-modal-datetime-picker'
+import timeToHumanReadable from '../Lib/OperationalHoursHelper'
 import {
   Heading,
   View,
@@ -25,52 +26,19 @@ import VendorActions from '../Redux/VendorRedux'
 import styles from './Styles/EditHoursScreenStyle'
 
 class EditHoursScreen extends Component {
+  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
   state = {
     params: {
-      days: [
-        {
-          name: 'Monday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-        {
-          name: 'Tuesday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-        {
-          name: 'Wednesday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-        {
-          name: 'Thursday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-        {
-          name: 'Friday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-        {
-          name: 'Saturday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-        {
-          name: 'Sunday',
-          open: false,
-          open_time: null,
-          close_time: null
-        },
-      ],
+      days: this.days.map((day) => {
+              let day_hours = this.props.hours.find(day_hours => day_hours.day === day);
+              return {
+                day: day,
+                open: (day_hours && day_hours.open) || false,
+                open_time: (day_hours && day_hours.open_time) || null,
+                close_time: (day_hours && day_hours.close_time) || null
+              }
+            }),
       nextRoute: 'EditDescriptionScreen'
     },
     isTimePickerVisible: false,
@@ -91,7 +59,7 @@ class EditHoursScreen extends Component {
 
   renderTimePicker(day, index, key) {
     const label = key === 'open_time' ? 'Open' : 'Close'
-    const value = day[key] ? day[key].getHours() + ":" + day[key].getMinutes() : '-'
+    const value = day[key] ? timeToHumanReadable(day[key]) : '-'
 
     return (
       <View styleName="vertical">
@@ -108,7 +76,7 @@ class EditHoursScreen extends Component {
     return (
       <View key={i}>
         <Row styleName="large">
-          <Text>{day.name}</Text>
+          <Text>{day.day}</Text>
           {switchOn ?
             this.renderTimePicker(day, i, 'open_time')
             :
@@ -157,6 +125,7 @@ class EditHoursScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    hours: state.vendor.hours
   }
 }
 

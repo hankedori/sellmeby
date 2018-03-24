@@ -11,9 +11,9 @@ class OrdersScreen extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
+        <ScrollView>
           <Text>OrdersScreen</Text>
-        </KeyboardAvoidingView>
+        </ScrollView>
       </ScrollView>
     )
   }

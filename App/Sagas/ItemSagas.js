@@ -23,7 +23,14 @@ export function * createItem (api, action) {
   if (response.ok) {
     yield put(ItemActions.success(response.data))
     yield put(VendorActions.vendorRequest())
-    yield put(NavigationActions.navigate({ routeName: 'StoreScreen' }))
+    yield put(NavigationActions.reset(
+     {
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'StoreScreen'})
+        ]
+      }
+    ));
   } else {
     yield put(ItemActions.failure())
   }

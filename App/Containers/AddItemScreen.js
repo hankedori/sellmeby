@@ -56,7 +56,7 @@ class AddItemScreen extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
+        <ScrollView>
           <Row>
             <View styleName="vertical">
               <Subtitle>Name</Subtitle>
@@ -130,7 +130,7 @@ class AddItemScreen extends Component {
             <Icon name="plus-button" />
             <Text>ADD</Text>
           </Button>
-        </KeyboardAvoidingView>
+        </ScrollView>
       </ScrollView>
     )
   }
