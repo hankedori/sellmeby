@@ -103,6 +103,9 @@ class ProfileScreen extends Component {
               <Icon styleName="disclosure" name="right-arrow" />
             </Row>
           </TouchableOpacity>
+          <Button onPress={this.props.logout} styleName="md-gutter-top">
+            <Text>LOGOUT</Text>
+          </Button>
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -126,7 +129,8 @@ const mapDispatchToProps = (dispatch) => ({
   editLogo: () => dispatch(NavigationActions.navigate({ routeName: 'LogoUploadScreen' })),
   editDescription: () => dispatch(NavigationActions.navigate({ routeName: 'EditDescriptionScreen' })),
   editLocation: () => dispatch(NavigationActions.navigate({ routeName: 'EditLocationScreen' })),
-  editHours: () => dispatch(NavigationActions.navigate({ routeName: 'EditHoursScreen' }))
+  editHours: () => dispatch(NavigationActions.navigate({ routeName: 'EditHoursScreen' })),
+  logout: () => dispatch(NavigationActions.navigate({routeName: 'RegistrationScreen' }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
