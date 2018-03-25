@@ -20,12 +20,13 @@ import styles from './Styles/AddItemScreenStyle'
 
 class AddItemScreen extends Component {
   state = {
-    name: '',
-    description: '',
-    price: '',
-    unit: '',
-    quantity: '',
-    image: require('../Images/press_to_upload.png')
+    id: this.props.item.id,
+    name: this.props.item.name,
+    description: this.props.item.description,
+    price: this.props.item.price,
+    unit: this.props.item.unit,
+    quantity: this.props.item.quantity.toString(),
+    image: { uri: this.props.item.image_file_src }
   }
 
   selectPhotoTapped() {
@@ -127,8 +128,8 @@ class AddItemScreen extends Component {
             </View>
           </Row>
           <Button onPress={this.props.add.bind(this, this.state)} styleName="md-gutter-top">
-            <Icon name="plus-button" />
-            <Text>ADD</Text>
+            <Icon name="edit" />
+            <Text>EDIT</Text>
           </Button>
         </ScrollView>
       </ScrollView>
@@ -136,13 +137,14 @@ class AddItemScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
+    ...props.navigation.state.params
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  add: (data) => dispatch(ItemActions.createRequest(data))
+  add: (data) => dispatch(ItemActions.updateRequest(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemScreen)

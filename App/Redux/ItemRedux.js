@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   createRequest: ['data'],
+  updateRequest: ['data'],
   success: ['payload'],
   failure: null
 })
@@ -41,6 +42,7 @@ export const failure = state =>
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CREATE_REQUEST]: createRequest,
+  [Types.UPDATE_REQUEST]: createRequest,
   [Types.SUCCESS]: success,
   [Types.FAILURE]: failure
 })

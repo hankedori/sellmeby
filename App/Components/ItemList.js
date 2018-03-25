@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import {
   Screen,
   ScrollView,
@@ -73,7 +74,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  openItemDetails: (item) => dispatch({ type: 'NavigateItem', item: item })
+  openItemDetails: (item) => dispatch(NavigationActions.navigate({ routeName: 'ItemDetailsScreen', params: { item: item }}))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemList)

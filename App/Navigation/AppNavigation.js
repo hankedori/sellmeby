@@ -1,5 +1,7 @@
 import React from 'react'
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
+import EditItemScreen from '../Containers/EditItemScreen'
+import ItemDetailsScreen from '../Containers/ItemDetailsScreen'
 import AddItemScreen from '../Containers/AddItemScreen'
 import EditDescriptionScreen from '../Containers/EditDescriptionScreen'
 import EditLocationScreen from '../Containers/EditLocationScreen'
@@ -42,7 +44,24 @@ const ProfileStack = StackNavigator({
 
 const StoreStack = StackNavigator({
   StoreScreen: { screen: StoreScreen },
-  AddItemScreen: { screen: AddItemScreen },
+  AddItemScreen: {
+    screen: AddItemScreen,
+    navigationOptions: {
+      headerTitle: "Add new item"
+    }
+  },
+  ItemDetailsScreen: {
+    screen: ItemDetailsScreen,
+    navigationOptions: {
+      headerTitle: "Item Details"
+    }
+  },
+  EditItemScreen: {
+    screen: EditItemScreen,
+    navigationOptions: {
+      headerTitle: "Edit Item"
+    }
+  }
 }, {
   headerMode: 'float',
   navigationOptions: {

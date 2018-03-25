@@ -21,46 +21,45 @@ import {
   View
 } from '@shoutem/ui'
 
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
-// Styles
 import styles from './Styles/ProfileScreenStyle'
 
 class ProfileScreen extends Component {
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
+  // static navigationOptions = ({ navigation, navigationOptions }) => {
+  //   const { params } = navigation.state;
+  //
+  //   return {
+  //     headerTitle: <ConnectedHeaderTitle navigation={navigation} />
+  //   };
+  // };
 
-    return {
-      headerTitle: <ConnectedHeaderTitle navigation={navigation} />
-    };
-  };
-
-  handleGetDirections = () => {
-    const data = {
-      destination: {
-        latitude: Number(this.props.latitude),
-        longitude: Number(this.props.longitude)
-      },
-      params: [
-        {
-          key: "dirflg",
-          value: "w"
-        }
-      ]
-    }
-
-    getDirections(data)
-  }
+  // handleGetDirections = () => {
+  //   const data = {
+  //     destination: {
+  //       latitude: Number(this.props.latitude),
+  //       longitude: Number(this.props.longitude)
+  //     },
+  //     params: [
+  //       {
+  //         key: "dirflg",
+  //         value: "w"
+  //       }
+  //     ]
+  //   }
+  //
+  //   getDirections(data)
+  // }
 
   render () {
     let image_source = this.props.logo_url? {uri: this.props.logo_url} : require('../Images/logo_missing.png')
-    console.tron.log(this.props)
     return (
       <ScrollView>
         <KeyboardAvoidingView behavior='position'>
+          <Row>
+            <Title>{this.props.name}</Title>
+          </Row>
+          <Divider styleName='line' />
           <TouchableOpacity onPress={this.props.editLogo}>
             <Tile>
               <View styleName='center md-gutter-top'>

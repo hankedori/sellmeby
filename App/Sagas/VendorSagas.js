@@ -28,6 +28,7 @@ export function * uploadLogo (api, action) {
 
   if(response.ok) {
     yield put(VendorActions.logoSuccess(response.data))
+    yield put(VendorActions.vendorRequest())
     yield put(NavigationActions.navigate({ routeName: nextRoute}))
   }
 }

@@ -15,7 +15,7 @@ import { ItemTypes } from '../Redux/ItemRedux'
 import { startup } from './StartupSagas'
 import { register, login, verifyToken } from './AuthSagas'
 import { getVendor, uploadLogo, updateVendor, updateHours } from './VendorSagas'
-import { createItem } from './ItemSagas'
+import { createItem, updateItem } from './ItemSagas'
 
 /* ------------- API ------------- */
 
@@ -39,6 +39,7 @@ export default function * root () {
     takeLatest(VendorTypes.UPDATE, updateVendor, api),
     takeLatest(VendorTypes.UPDATE_HOURS, updateHours, api),
 
-    takeLatest(ItemTypes.CREATE_REQUEST, createItem, api)
+    takeLatest(ItemTypes.CREATE_REQUEST, createItem, api),
+    takeLatest(ItemTypes.UPDATE_REQUEST, updateItem, api),
   ])
 }
