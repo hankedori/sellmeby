@@ -9,6 +9,7 @@ import { StartupTypes } from '../Redux/StartupRedux'
 import { AuthTypes } from '../Redux/AuthRedux'
 import { VendorTypes } from '../Redux/VendorRedux'
 import { ItemTypes } from '../Redux/ItemRedux'
+import { OrdersTypes } from '../Redux/OrdersRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -16,6 +17,7 @@ import { startup } from './StartupSagas'
 import { register, login, verifyToken } from './AuthSagas'
 import { getVendor, uploadLogo, updateVendor, updateHours } from './VendorSagas'
 import { createItem, updateItem } from './ItemSagas'
+import { getOrders } from './OrdersSagas'
 
 /* ------------- API ------------- */
 
@@ -41,5 +43,7 @@ export default function * root () {
 
     takeLatest(ItemTypes.CREATE_REQUEST, createItem, api),
     takeLatest(ItemTypes.UPDATE_REQUEST, updateItem, api),
+
+    takeLatest(OrdersTypes.ORDERS_REQUEST, getOrders, api)
   ])
 }

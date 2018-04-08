@@ -11,6 +11,7 @@ export const reducers = combineReducers({
   auth: require('./AuthRedux').reducer,
   vendor: require('./VendorRedux').reducer,
   item: require('./ItemRedux').reducer,
+  orders: require('./OrdersRedux').reducer,
   search: require('./SearchRedux').reducer,
   form: formReducer
 })

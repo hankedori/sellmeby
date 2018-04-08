@@ -1,7 +1,7 @@
 import apisauce from 'apisauce'
 
-// const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
-const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
+const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
+// const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
 
   const api = apisauce.create({
     baseURL,
@@ -26,6 +26,8 @@ const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
   const createItem = (params, headers) => api.post('items', params, { headers })
   const updateItem = (id, params, headers) => api.patch('items/' + id, params, { headers })
 
+  const getOrders = () => api.get('orders')
+
   const config = api
   return {
     getRoot,
@@ -39,6 +41,7 @@ const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
     updateHours,
     createItem,
     updateItem,
+    getOrders,
     config
   }
 }
