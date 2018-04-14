@@ -10,3 +10,14 @@ export function * getOrders (api, action) {
     yield put(OrdersActions.ordersFailure())
   }
 }
+
+export function * completeOrder (api, action) {
+  const { id } = action
+  const response = yield call(api.completeOrder, id)
+
+  if (response.ok) {
+    yield put(OrdersActions.ordersSuccess(response.data))
+  } else {
+    yield put(OrdersActions.ordersFailure())
+  }
+}

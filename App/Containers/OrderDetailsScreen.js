@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import OrdersActions from '../Redux/OrdersRedux'
 import { Title, View, Button, Divider, ScrollView, Text, Row, Image, Subtitle, Caption } from '@shoutem/ui'
 
 import styles from './Styles/OrderDetailsScreenStyle'
 
 class OrderDetailsScreen extends Component {
   render () {
-    const order_details = this.props.order.order_details;
+    const order = this.props.order;
+    const order_details = order.order_details;
     if (!order_details) {
       return null
     }
@@ -36,7 +38,7 @@ class OrderDetailsScreen extends Component {
             ))
           }
           <Divider styleName="line" />
-          <Button onPress={this.props.completeOrder.bind(this)}>
+          <Button onPress={this.props.completeOrder.bind(this, order.id)}>
             <Text>Complete Order</Text>
           </Button>
         </ScrollView>
@@ -52,7 +54,7 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  completeOrder: () => dispatch({ type: 'NavigateBack' })
+  completeOrder: (id) => dispatch(OrdersActions.orderComplete(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetailsScreen)

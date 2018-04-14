@@ -17,7 +17,7 @@ import { startup } from './StartupSagas'
 import { register, login, verifyToken } from './AuthSagas'
 import { getVendor, uploadLogo, updateVendor, updateHours } from './VendorSagas'
 import { createItem, updateItem } from './ItemSagas'
-import { getOrders } from './OrdersSagas'
+import { getOrders, completeOrder } from './OrdersSagas'
 
 /* ------------- API ------------- */
 
@@ -44,6 +44,7 @@ export default function * root () {
     takeLatest(ItemTypes.CREATE_REQUEST, createItem, api),
     takeLatest(ItemTypes.UPDATE_REQUEST, updateItem, api),
 
-    takeLatest(OrdersTypes.ORDERS_REQUEST, getOrders, api)
+    takeLatest(OrdersTypes.ORDERS_REQUEST, getOrders, api),
+    takeLatest(OrdersTypes.ORDER_COMPLETE, completeOrder, api)
   ])
 }

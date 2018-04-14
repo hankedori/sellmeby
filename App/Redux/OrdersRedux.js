@@ -6,7 +6,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   ordersRequest: null,
   ordersSuccess: ['orders'],
-  ordersFailure: null
+  ordersFailure: null,
+  orderComplete: ['id']
 })
 
 export const OrdersTypes = Types
@@ -23,8 +24,8 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, orders: [] })
+export const request = (state, action) =>
+  state.merge({ fetching: true })
 
 // successful api lookup
 export const success = (state, action) => {
@@ -34,12 +35,13 @@ export const success = (state, action) => {
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, orders: [] })
+  state.merge({ fetching: false, error: true })
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ORDERS_REQUEST]: request,
   [Types.ORDERS_SUCCESS]: success,
-  [Types.ORDERS_FAILURE]: failure
+  [Types.ORDERS_FAILURE]: failure,
+  [Types.ORDER_COMPLETE]: request
 })

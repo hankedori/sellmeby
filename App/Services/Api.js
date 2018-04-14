@@ -27,6 +27,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
   const updateItem = (id, params, headers) => api.patch('items/' + id, params, { headers })
 
   const getOrders = () => api.get('orders')
+  const completeOrder = (id) => api.patch('orders/' + id)
 
   const config = api
   return {
@@ -42,6 +43,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
     createItem,
     updateItem,
     getOrders,
+    completeOrder,
     config
   }
 }
