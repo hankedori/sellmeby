@@ -32,6 +32,14 @@ class OrdersScreen extends Component {
 
     return (
       <ScrollView>
+        <TouchableOpacity>
+          <Row>
+            <View>
+              <Subtitle styleName="sm-gutter-bottom">Completed Orders</Subtitle>
+            </View>
+            <Icon styleName="disclosure" name="right-arrow" />
+          </Row>
+        </TouchableOpacity>
         {
           orders.map((order) => (
             <TouchableOpacity key={order.id} onPress={() => this.props.openOrderDetails(order)}>

@@ -56,7 +56,7 @@ export const logoSuccess = (state, action) => {
 }
 
 export const failure = state =>
-  state.merge({ uploading: false, failed: true })
+  state.merge({ uploading: false, fetching: false, failed: true })
 
 
 export const update = (state, { data }) =>

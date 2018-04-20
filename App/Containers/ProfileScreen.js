@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, TouchableOpacity, Image, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import getDirections from 'react-native-google-maps-directions'
@@ -26,33 +26,17 @@ import styles from './Styles/ProfileScreenStyle'
 class ProfileScreen extends Component {
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  // static navigationOptions = ({ navigation, navigationOptions }) => {
-  //   const { params } = navigation.state;
-  //
-  //   return {
-  //     headerTitle: <ConnectedHeaderTitle navigation={navigation} />
-  //   };
-  // };
-
-  // handleGetDirections = () => {
-  //   const data = {
-  //     destination: {
-  //       latitude: Number(this.props.latitude),
-  //       longitude: Number(this.props.longitude)
-  //     },
-  //     params: [
-  //       {
-  //         key: "dirflg",
-  //         value: "w"
-  //       }
-  //     ]
-  //   }
-  //
-  //   getDirections(data)
-  // }
-
   render () {
     let image_source = this.props.logo_url? {uri: this.props.logo_url} : require('../Images/logo_missing.png')
+
+    if (this.props.fetching) {
+      return(
+        <View styleName='middleCenter'>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      )
+    }
+
     return (
       <ScrollView>
         <KeyboardAvoidingView behavior='position'>
@@ -90,10 +74,16 @@ class ProfileScreen extends Component {
                 {
                   this.days.map((day, i) => {
                     let day_hours = this.props.hours.find(day_hours => day_hours.day === day)
-                    if (day_hours) {
+                    if (day_hours && day_hours.open) {
                       return (
                         <Text key={i}>
                           {day_hours.day + ': ' + timeToHumanReadable(day_hours.open_time) + ' - ' + timeToHumanReadable(day_hours.close_time)}
+                        </Text>
+                      )
+                    } else {
+                      return (
+                        <Text key={i}>
+                          {day_hours.day + ': CLOSED'}
                         </Text>
                       )
                     }
@@ -121,7 +111,8 @@ const mapStateToProps = (state) => {
     longitude: state.vendor.vendor.longitude,
     place_id: state.vendor.vendor.place_id,
     address: state.vendor.vendor.address,
-    hours: state.vendor.hours
+    hours: state.vendor.hours,
+    fetching: state.vendor.fetching
   }
 }
 

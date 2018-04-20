@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, TouchableOpacity, KeyboardAvoidingView, StyleSheet, PixelRatio } from 'react-native'
+import { Image, TouchableOpacity, KeyboardAvoidingView, StyleSheet, PixelRatio, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import VendorActions from '../Redux/VendorRedux'
 import ImagePicker from 'react-native-image-picker'
@@ -58,6 +58,13 @@ class LogoUploadScreen extends Component {
   }
 
   render () {
+    const uploading = this.props.uploading
+    const uploadContainer = uploading ? (
+      <ActivityIndicator size="large" color="#000000" />
+    ) : (
+      <Image style={styles.avatar} source={this.state.logo} />
+    )
+
     return (
       <ScrollView>
         <ScrollView>
@@ -69,13 +76,15 @@ class LogoUploadScreen extends Component {
           <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
             <Tile>
               <View styleName='center md-gutter-top md-gutter-bottom'>
-              { this.state.logo === null ? <Text>Select a Photo</Text> :
-                <Image style={styles.avatar} source={this.state.logo} />
-              }
+              {uploadContainer}
               </View>
             </Tile>
           </TouchableOpacity>
-          <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo, this.state.nextRoute)} styles={{marginTop: 10}} />
+          <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo, this.state.nextRoute)} disabled={this.props.uploading} styles={{marginTop: 10}} />
+          {
+            this.props.failure &&
+            <Text>Something went wrong</Text>
+          }
         </ScrollView>
       </ScrollView>
     )
@@ -85,6 +94,8 @@ class LogoUploadScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     logo_url: state.vendor.vendor.logo_url,
+    failure: state.vendor.failure,
+    uploading: state.vendor.uploading
   }
 }
 
