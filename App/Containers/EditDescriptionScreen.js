@@ -43,14 +43,14 @@ class EditDescriptionScreen extends Component {
             <Text>Please enter a description for your shop</Text>
           </Row>
           <Divider styleName="line" />
-          <TextInput // Inherit any props passed to it; e.g., multiline, numberOfLines below
+          <TextInput
             placeholder={'Shop description..'}
             editable = {true}
             multiline = {true}
             numberOfLines = {10}
             onChangeText={(description) => this.setState({ params: {description} })}
             value={this.state.params.description}
-            style={{ height: 300 }}
+            style={{ height: 300, textAlignVertical: 'top' }}
           />
           <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
         </ScrollView>

@@ -83,16 +83,24 @@ class AddItemScreen extends Component {
             <View styleName="vertical">
               <Subtitle>Price / unit</Subtitle>
               <Divider styleName="line" />
-              <Row styleName="small">
+              <Row>
+                <Text style={{flex: 0.05}}>
+                  $
+                </Text>
                 <TextInput
-                  placeholder={'price (eg. 5.73)'}
+                  placeholder={'price (5.73)'}
                   onChangeText={(price) => this.setState({price}) }
                   value={this.state.price}
+                  style={{flex: 0.4}}
                 />
+                <Text style={{flex: 0.05}}>
+                  /
+                </Text>
                 <TextInput
-                  placeholder={'unit (eg. each or 12 oz)'}
+                  placeholder={'unit (eg. oz)'}
                   onChangeText={(unit) => this.setState({unit}) }
                   value={this.state.unit}
+                  style={{flex: 0.5}}
                 />
               </Row>
             </View>
@@ -108,7 +116,7 @@ class AddItemScreen extends Component {
                 numberOfLines = {5}
                 onChangeText={(description) => this.setState( {description} )}
                 value={this.state.description}
-                style={{ height: 100 }}
+                style={{ height: 100, textAlignVertical: 'top'}}
               />
             </View>
           </Row>
