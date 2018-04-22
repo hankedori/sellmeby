@@ -3,22 +3,22 @@ import { ScrollView, Text, Image, View, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import AuthActions from '../Redux/AuthRedux'
-import RegistrationForm from '../Components/RegistrationForm'
+import LoginForm from '../Components/LoginForm'
 
 // Styles
 import styles from './Styles/LaunchScreenStyles'
 
-class RegistrationScreen extends Component {
-  handleRegisterSubmit = (values) => {
-    this.props.register(values)
+class LoginScreen extends Component {
+  handleLoginSubmit = (values) => {
+    this.props.login(values)
   }
 
   render () {
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
-          <RegistrationForm onSubmit={this.handleRegisterSubmit} />
-          <TouchableOpacity onPress={() => this.props.navigateLogin()}>
+          <LoginForm onSubmit={this.handleLoginSubmit} />
+          <TouchableOpacity onPress={() => this.props.navigateRegistration()}>
             <Text style={styles.sectionText}>Already a member? Login Here</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -32,12 +32,12 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  register: (_) => {
-    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation, _.name))
+  login: (_) => {
+    dispatch(AuthActions.loginRequest(_.email, _.password))
   },
-  navigateLogin: () => {
-    dispatch(NavigationActions.navigate({ routeName: 'LoginScreen' }))
+  navigateRegistration: () => {
+    dispatch(NavigationActions.navigate({ routeName: 'RegistrationScreen' }))
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

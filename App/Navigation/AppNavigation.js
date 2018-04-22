@@ -1,5 +1,6 @@
 import React from 'react'
 import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'react-navigation'
+import LoginScreen from '../Containers/LoginScreen'
 import OrdersActions from '../Redux/OrdersRedux'
 import CompleteOrdersScreen from '../Containers/CompleteOrdersScreen'
 import OrderDetailsScreen from '../Containers/OrderDetailsScreen'
@@ -144,6 +145,7 @@ const MainTabNav = TabNavigator({
 const PrimaryNav = StackNavigator({
   LaunchScreen: { screen: LaunchScreen },
   RegistrationScreen: { screen: RegistrationScreen },
+  LoginScreen: { screen: LoginScreen },
   InitialSetupStack: { screen: InitialSetupStack },
   MainTabNav: { screen: MainTabNav },
 }, {
