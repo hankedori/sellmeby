@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   ordersRequest: null,
-  ordersSuccess: ['orders'],
+  ordersSuccess: ['orders', 'completed_orders'],
   ordersFailure: null,
   orderComplete: ['id']
 })
@@ -18,6 +18,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   fetching: null,
   orders: [],
+  completed_orders: [],
   error: null
 })
 
@@ -29,8 +30,9 @@ export const request = (state, action) =>
 
 // successful api lookup
 export const success = (state, action) => {
-  const { orders } = action
-  return state.merge({ fetching: false, error: null, orders })
+  console.tron.log(action)
+  const { orders, completed_orders } = action
+  return state.merge({ fetching: false, error: null, orders, completed_orders })
 }
 
 // Something went wrong somewhere.

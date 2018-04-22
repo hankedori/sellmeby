@@ -1,5 +1,6 @@
 import React from 'react'
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
+import CompleteOrdersScreen from '../Containers/CompleteOrdersScreen'
 import OrderDetailsScreen from '../Containers/OrderDetailsScreen'
 import EditItemScreen from '../Containers/EditItemScreen'
 import ItemDetailsScreen from '../Containers/ItemDetailsScreen'
@@ -72,7 +73,8 @@ const StoreStack = StackNavigator({
 
 const OrdersStack = StackNavigator({
   OrdersScreen: { screen: OrdersScreen },
-  OrderDetailsScreen: { screen: OrderDetailsScreen }
+  OrderDetailsScreen: { screen: OrderDetailsScreen },
+  CompleteOrdersScreen: { screen: CompleteOrdersScreen }
 }, {
   headerMode: 'float',
   navigationOptions: {

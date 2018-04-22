@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { KeyboardAvoidingView } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-
-import OrdersActions from '../Redux/OrdersRedux'
-import styles from './Styles/OrdersScreenStyle'
-
+import { connect } from 'react-redux'
 import {
   Screen,
   Divider,
@@ -22,26 +19,15 @@ import {
   Text
 } from '@shoutem/ui';
 
-class OrdersScreen extends Component {
-  componentWillMount() {
-    this.props.getOrderList()
-  }
+// Styles
+import styles from './Styles/CompleteOrdersScreenStyle'
 
+class CompleteOrdersScreen extends Component {
   render () {
-    const orders = this.props.orders;
-
     return (
       <ScrollView>
-        <TouchableOpacity onPress={() => this.props.openCompleteOrders()}>
-          <Row>
-            <View>
-              <Subtitle styleName="sm-gutter-bottom">Completed Orders</Subtitle>
-            </View>
-            <Icon styleName="disclosure" name="right-arrow" />
-          </Row>
-        </TouchableOpacity>
         {
-          orders.map((order) => (
+          this.props.orders.map((order) => (
             <TouchableOpacity key={order.id} onPress={() => this.props.openOrderDetails(order)}>
               <Row>
                 <Image
@@ -70,14 +56,12 @@ class OrdersScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.orders.orders
+    orders: state.orders.completed_orders
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getOrderList: () => dispatch(OrdersActions.ordersRequest()),
-  openOrderDetails: (order) => dispatch(NavigationActions.navigate({ routeName: 'OrderDetailsScreen', params: { order: order }})),
-  openCompleteOrders: () => dispatch(NavigationActions.navigate({ routeName: 'CompleteOrdersScreen'})),
+  openOrderDetails: (order) => dispatch(NavigationActions.navigate({ routeName: 'OrderDetailsScreen', params: { order: order }}))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrdersScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(CompleteOrdersScreen)

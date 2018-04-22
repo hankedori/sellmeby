@@ -5,7 +5,7 @@ export function * getOrders (api, action) {
   const response = yield call(api.getOrders)
 
   if (response.ok) {
-    yield put(OrdersActions.ordersSuccess(response.data))
+    yield put(OrdersActions.ordersSuccess(response.data.orders, response.data.completed_orders))
   } else {
     yield put(OrdersActions.ordersFailure())
   }
