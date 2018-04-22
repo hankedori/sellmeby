@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import TimePicker from 'react-native-modal-datetime-picker'
 import timeToHumanReadable from '../Lib/OperationalHoursHelper'
@@ -103,6 +103,10 @@ class EditHoursScreen extends Component {
   render () {
     return (
       <ScrollView>
+        {
+          this.props.failed &&
+          <Text>Something went wrong, please try again</Text>
+        }
         <Row styleName="large">
           <Icon name="events" />
           <Text>Please enter your hours of operation</Text>
@@ -117,7 +121,12 @@ class EditHoursScreen extends Component {
           onConfirm={this._handleTimePicked}
           onCancel={this._hideTimePicker}
         />
-        <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params)} styles={{marginTop: 10}} />
+        {
+          this.props.uploading ?
+            <ActivityIndicator size="large" color="#000000" />
+          :
+            <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params)} styles={{marginTop: 10}} />
+        }
       </ScrollView>
     )
   }
@@ -125,7 +134,9 @@ class EditHoursScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    hours: state.vendor.hours
+    hours: state.vendor.hours,
+    uploading: state.vendor.uploading,
+    failed: state.vendor.failed
   }
 }
 

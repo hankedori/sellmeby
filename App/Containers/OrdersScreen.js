@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
@@ -28,7 +29,13 @@ class OrdersScreen extends Component {
   }
 
   render () {
-    const orders = this.props.orders;
+    if (this.props.fetching) {
+      return(
+        <View styleName='middleCenter'>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      )
+    }
 
     return (
       <ScrollView>
@@ -41,7 +48,7 @@ class OrdersScreen extends Component {
           </Row>
         </TouchableOpacity>
         {
-          orders.map((order) => (
+          this.props.orders.map((order) => (
             <TouchableOpacity key={order.id} onPress={() => this.props.openOrderDetails(order)}>
               <Row>
                 <Image
@@ -70,7 +77,8 @@ class OrdersScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.orders.orders
+    orders: state.orders.orders,
+    fetching: state.orders.fetching
   }
 }
 

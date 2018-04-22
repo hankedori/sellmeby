@@ -68,6 +68,10 @@ class LogoUploadScreen extends Component {
     return (
       <ScrollView>
         <ScrollView>
+          {
+            this.props.failed &&
+            <Text>Something went wrong, please try again</Text>
+          }
           <Row styleName="large">
             <Icon name="photo" />
             <Text>Please upload a logo</Text>
@@ -81,10 +85,6 @@ class LogoUploadScreen extends Component {
             </Tile>
           </TouchableOpacity>
           <RoundedButton text={'Upload'} onPress={this.props.upload_logo.bind(this, this.state.logo, this.state.nextRoute)} disabled={this.props.uploading} styles={{marginTop: 10}} />
-          {
-            this.props.failure &&
-            <Text>Something went wrong</Text>
-          }
         </ScrollView>
       </ScrollView>
     )
@@ -94,7 +94,7 @@ class LogoUploadScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     logo_url: state.vendor.vendor.logo_url,
-    failure: state.vendor.failure,
+    failed: state.vendor.failed,
     uploading: state.vendor.uploading
   }
 }

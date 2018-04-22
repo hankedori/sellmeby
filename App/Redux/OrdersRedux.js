@@ -16,7 +16,7 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  fetching: null,
+  fetching: false,
   orders: [],
   completed_orders: [],
   error: null
@@ -30,7 +30,6 @@ export const request = (state, action) =>
 
 // successful api lookup
 export const success = (state, action) => {
-  console.tron.log(action)
   const { orders, completed_orders } = action
   return state.merge({ fetching: false, error: null, orders, completed_orders })
 }

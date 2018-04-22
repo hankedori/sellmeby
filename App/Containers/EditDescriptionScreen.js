@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 import VendorActions from '../Redux/VendorRedux'
@@ -38,6 +38,10 @@ class EditDescriptionScreen extends Component {
     return (
       <ScrollView>
         <ScrollView>
+          {
+            this.props.failed &&
+            <Text>Something went wrong, please try again</Text>
+          }
           <Row styleName="large">
             <Icon name="social-wall" />
             <Text>Please enter a description for your shop</Text>
@@ -52,7 +56,12 @@ class EditDescriptionScreen extends Component {
             value={this.state.params.description}
             style={{ height: 300, textAlignVertical: 'top' }}
           />
-          <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
+          {
+            this.props.uploading ?
+              <ActivityIndicator size="large" color="#000000" />
+            :
+              <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
+          }
         </ScrollView>
       </ScrollView>
     )
@@ -61,7 +70,9 @@ class EditDescriptionScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    description: state.vendor.vendor.description
+    description: state.vendor.vendor.description,
+    uploading: state.vendor.uploading,
+    failed: state.vendor.failed
   }
 }
 

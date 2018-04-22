@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import ImagePicker from 'react-native-image-picker'
 import ItemActions from '../Redux/ItemRedux'
@@ -58,6 +58,10 @@ class AddItemScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <ScrollView>
+          {
+            this.props.error &&
+            <Text>Something went wrong, please try again</Text>
+          }
           <Row>
             <View styleName="vertical">
               <Subtitle>Name</Subtitle>
@@ -84,16 +88,24 @@ class AddItemScreen extends Component {
             <View styleName="vertical">
               <Subtitle>Price / unit</Subtitle>
               <Divider styleName="line" />
-              <Row styleName="small">
+              <Row>
+                <Text style={{flex: 0.05}}>
+                  $
+                </Text>
                 <TextInput
                   placeholder={'price (eg. 5.73)'}
                   onChangeText={(price) => this.setState({price}) }
                   value={this.state.price}
+                  style={{flex: 0.4}}
                 />
+                <Text style={{flex: 0.05}}>
+                  /
+                </Text>
                 <TextInput
                   placeholder={'unit (eg. each or 12 oz)'}
                   onChangeText={(unit) => this.setState({unit}) }
                   value={this.state.unit}
+                  style={{flex: 0.5}}
                 />
               </Row>
             </View>
@@ -109,7 +121,7 @@ class AddItemScreen extends Component {
                 numberOfLines = {5}
                 onChangeText={(description) => this.setState( {description} )}
                 value={this.state.description}
-                style={{ height: 100 }}
+                style={{ height: 100, textAlignVertical: 'top' }}
               />
             </View>
           </Row>
@@ -127,10 +139,17 @@ class AddItemScreen extends Component {
               </TouchableOpacity>
             </View>
           </Row>
-          <Button onPress={this.props.add.bind(this, this.state)} styleName="md-gutter-top">
-            <Icon name="edit" />
-            <Text>EDIT</Text>
-          </Button>
+          <View>
+          {
+            this.props.fetching ?
+              <ActivityIndicator size="large" color="#000000" />
+            :
+              <Button onPress={this.props.add.bind(this, this.state)} styleName="md-gutter-top">
+                <Icon name="edit" />
+                <Text>EDIT</Text>
+              </Button>
+          }
+          </View>
         </ScrollView>
       </ScrollView>
     )
@@ -139,7 +158,9 @@ class AddItemScreen extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    ...props.navigation.state.params
+    ...props.navigation.state.params,
+    fetching: state.item.fetching,
+    error: state.item.error
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
+import { StackNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'react-navigation'
+import OrdersActions from '../Redux/OrdersRedux'
 import CompleteOrdersScreen from '../Containers/CompleteOrdersScreen'
 import OrderDetailsScreen from '../Containers/OrderDetailsScreen'
 import EditItemScreen from '../Containers/EditItemScreen'
@@ -73,8 +74,18 @@ const StoreStack = StackNavigator({
 
 const OrdersStack = StackNavigator({
   OrdersScreen: { screen: OrdersScreen },
-  OrderDetailsScreen: { screen: OrderDetailsScreen },
-  CompleteOrdersScreen: { screen: CompleteOrdersScreen }
+  OrderDetailsScreen: {
+    screen: OrderDetailsScreen,
+    navigationOptions: {
+      headerTitle: "Order Details"
+    }
+  },
+  CompleteOrdersScreen: {
+    screen: CompleteOrdersScreen,
+    navigationOptions: {
+      headerTitle: "Completed Orders"
+    }
+  }
 }, {
   headerMode: 'float',
   navigationOptions: {
@@ -106,15 +117,19 @@ const MainTabNav = TabNavigator({
     }
   },
   OrdersStack: {
-   screen: OrdersStack,
-   navigationOptions: {
-     title: 'Orders',
-     tabBarIcon: ({ focused }) => (
-       focused ?
-       <Icon name="clipboard-text" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#000" /> :
-       <Icon name="clipboard-text" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#d3d3d3" />
-     )
-   }
+    screen: OrdersStack,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Orders',
+      tabBarIcon: ({ focused }) => (
+        focused ?
+        <Icon name="clipboard-text" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#000" /> :
+        <Icon name="clipboard-text" type="simple-line-icon" size={24} iconStyle={{paddingBottom:0,paddingTop:0}} color="#d3d3d3" />
+      ),
+      tabBarOnPress: (scene, jumpToIndex) => {
+        navigation.dispatch(OrdersActions.ordersRequest());
+        navigation.dispatch(NavigationActions.navigate({ routeName: 'OrdersStack' }));
+      },
+    })
   }
 }, {
   initialRouteName: 'ProfileStack',

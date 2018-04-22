@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import RoundedButton from '../Components/RoundedButton'
@@ -102,6 +102,10 @@ class EditLocationScreen extends Component {
     return (
       <ScrollView>
         <ScrollView>
+          {
+            this.props.failed &&
+            <Text>Something went wrong, please try again</Text>
+          }
           <Row styleName="large">
             <Icon name="pin" />
             <Text>Please enter the address or location of your shop</Text>
@@ -111,7 +115,12 @@ class EditLocationScreen extends Component {
             :
             this.renderAutoComplete()
           }
-          <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
+          {
+            this.props.uploading ?
+              <ActivityIndicator size="large" color="#000000" />
+            :
+              <RoundedButton text={'Continue'} onPress={this.props.submit.bind(this, this.state.params, this.state.nextRoute)} styles={{marginTop: 10}} />
+          }
         </ScrollView>
       </ScrollView>
     )
@@ -125,7 +134,9 @@ const mapStateToProps = (state) => {
     address: state.vendor.vendor.address,
     latitude: state.vendor.vendor.latitude,
     longitude: state.vendor.vendor.longitude,
-    place_id: state.vendor.vendor.place_id
+    place_id: state.vendor.vendor.place_id,
+    uploading: state.vendor.uploading,
+    failed: state.vendor.failed
   }
 }
 
