@@ -1,28 +1,31 @@
 import React from 'react'
-import { View } from 'react-native'
 import { Field, reduxForm } from 'redux-form';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-import RoundedButton from './RoundedButton'
+import { View, TouchableOpacity, Text } from 'react-native'
+import { TextInput } from '@shoutem/ui'
+
+import styles from './Styles/AuthFormStyles'
 
 const renderInput = ({ input: { onChange, ...restInput }}) => {
-  return <FormInput onChangeText={onChange} {...restInput} />
+  return <TextInput styleName='sm-gutter-vertical' placeholder={'EMAIL'} onChangeText={onChange} {...restInput} />
 }
 
 const renderSecureInput = ({ input: { onChange, ...restInput }}) => {
-  return <FormInput onChangeText={onChange} secureTextEntry={true} {...restInput} />
+  return <TextInput styleName='sm-gutter-vertical' placeholder={'PASSWORD'} secureTextEntry onChangeText={onChange} {...restInput} />
 }
 
 class LoginForm extends React.Component {
   render () {
     const { handleSubmit } = this.props;
     return (
-      <View>
-        <FormLabel>E-mail</FormLabel>
+      <View style={styles.container}>
         <Field name="email" component={renderInput} />
-        <FormLabel>Password</FormLabel>
         <Field name="password" component={renderSecureInput} />
 
-        <RoundedButton text={'Login'} onPress={handleSubmit} styles={{marginTop: 10}} />
+        <View style={styles.centered}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

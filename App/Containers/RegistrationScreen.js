@@ -2,24 +2,29 @@ import React, { Component } from 'react'
 import { ScrollView, Text, Image, View, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+
 import AuthActions from '../Redux/AuthRedux'
-import RegistrationForm from '../Components/RegistrationForm'
+import RegistrationForm from '../Components/RegistrationForm.js'
 
 // Styles
-import styles from './Styles/LaunchScreenStyles'
+import styles from './Styles/LoginScreenStyle'
 
 class RegistrationScreen extends Component {
-  handleRegisterSubmit = (values) => {
+  handleLoginSubmit = (values) => {
     this.props.register(values)
   }
 
   render () {
     return (
-      <View style={styles.mainContainer}>
+      <View style={styles.secondaryContainer}>
         <ScrollView style={styles.container}>
-          <RegistrationForm onSubmit={this.handleRegisterSubmit} />
-          <TouchableOpacity onPress={() => this.props.navigateLogin()}>
-            <Text style={styles.sectionText}>Already a member? Login Here</Text>
+          <View style={styles.logoContainer}>
+            <Image source={require('../Images/logo.png')} style={styles.logo} />
+          </View>
+          <RegistrationForm onSubmit={this.handleLoginSubmit} />
+          <TouchableOpacity onPress={this.props.openLoginScreen.bind(this)}>
+            <Text style={styles.subText}>Already a member?</Text>
+            <Text style={styles.subText}>Click here to log in</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -32,11 +37,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  openLoginScreen: () => dispatch(NavigationActions.navigate({ routeName: 'LoginScreen'})),
   register: (_) => {
-    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation, _.name))
-  },
-  navigateLogin: () => {
-    dispatch(NavigationActions.navigate({ routeName: 'LoginScreen' }))
+    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation))
   }
 })
 

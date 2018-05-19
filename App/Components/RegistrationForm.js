@@ -1,32 +1,36 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { Field, reduxForm } from 'redux-form';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-import RoundedButton from './RoundedButton'
+import { TextInput } from '@shoutem/ui'
+
+import styles from './Styles/AuthFormStyles'
 
 const renderInput = ({ input: { onChange, ...restInput }}) => {
-  return <FormInput onChangeText={onChange} {...restInput} />
+  return <TextInput styleName='sm-gutter-vertical' placeholder={'EMAIL'} onChangeText={onChange} {...restInput} />
 }
 
 const renderSecureInput = ({ input: { onChange, ...restInput }}) => {
-  return <FormInput onChangeText={onChange} secureTextEntry={true} {...restInput} />
+  return <TextInput styleName='sm-gutter-vertical' placeholder={'PASSWORD'} secureTextEntry onChangeText={onChange} {...restInput} />
+}
+
+const renderSecureConfirmationInput = ({ input: { onChange, ...restInput }}) => {
+  return <TextInput styleName='sm-gutter-vertical' placeholder={'CONFIRM PASSWORD'} secureTextEntry onChangeText={onChange} {...restInput} />
 }
 
 class RegistrationForm extends React.Component {
   render () {
-    const { handleSubmit } = this.props;
+    const { handleSubmit } = this.props
     return (
-      <View>
-        <FormLabel>Store name</FormLabel>
-        <Field name="name" component={renderInput} />
-        <FormLabel>E-mail</FormLabel>
+      <View style={styles.container}>
         <Field name="email" component={renderInput} />
-        <FormLabel>Password</FormLabel>
         <Field name="password" component={renderSecureInput} />
-        <FormLabel>Confirm Password</FormLabel>
-        <Field name="password_confirmation" component={renderSecureInput} />
+        <Field name="password_confirmation" component={renderSecureConfirmationInput} />
 
-        <RoundedButton text={'Register'} onPress={handleSubmit} styles={{marginTop: 10}} />
+        <View style={styles.centered}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>REGISTER</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

@@ -9,7 +9,11 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.snow
+    },
+    secondaryContainer: {
+      flex: 1,
+      backgroundColor: Colors.splash
     },
     backgroundImage: {
       position: 'absolute',
@@ -20,8 +24,12 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      paddingTop: Metrics.baseMargin,
       backgroundColor: Colors.transparent
+    },
+    centered: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     section: {
       margin: Metrics.section,
@@ -40,10 +48,26 @@ const ApplicationStyles = {
       marginBottom: Metrics.smallMargin,
       marginHorizontal: Metrics.smallMargin
     },
+    subText: {
+      ...Fonts.style.normal,
+      color: Colors.secondary,
+      textAlign: 'center'
+    },
     titleText: {
       ...Fonts.style.h2,
       fontSize: 14,
       color: Colors.text
+    },
+    logoContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: Metrics.baseMargin,
+      marginVertical: -40
+    },
+    logo: {
+      width: '100%',
+      resizeMode: 'contain'
     }
   },
   darkLabelContainer: {
