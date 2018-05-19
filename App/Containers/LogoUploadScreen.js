@@ -38,7 +38,9 @@ class LogoUploadScreen extends Component {
       maxWidth: 500,
       maxHeight: 500,
       storageOptions: {
-        skipBackup: true
+        cameraRoll: true,
+        skipBackup: true,
+        waitUntilSaved:true
       }
     };
 

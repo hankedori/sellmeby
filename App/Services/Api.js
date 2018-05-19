@@ -1,8 +1,9 @@
 import apisauce from 'apisauce'
 
 // const create = (baseURL = 'http://10.0.2.2:3000/api/sellmeby/') => {
-const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
+// const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
 // const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
+const create = (baseURL = 'https://buymeby-prod.cfapps.io/api/sellmeby/') => {
 
   const api = apisauce.create({
     baseURL,
