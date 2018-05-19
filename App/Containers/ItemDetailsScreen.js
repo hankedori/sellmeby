@@ -1,56 +1,38 @@
 import React, { Component } from 'react'
+import { StyleSheet, Text, Image, ScrollView, View, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
 import {
-  Screen,
-  ScrollView,
-  GridRow,
-  TouchableOpacity,
   DropDownMenu,
-  Image,
   Title,
   Subtitle,
-  Card,
-  View,
   Caption,
-  ListView,
-  Tile,
-  Button,
-  Heading,
-  Text,
-  Icon
+  Tile
 } from '@shoutem/ui';
 
-class ItemDetailsScreen extends Component {
+import styles from './Styles/ItemDetailsScreenStyle'
 
+class ItemDetailsScreen extends Component {
   render () {
     const item = this.props.item
+    const vendor = this.props.vendor
 
     return (
-      <View>
+      <View style={styles.mainContainer}>
         <ScrollView>
-          <Tile>
-            <Image
-              styleName="featured"
-              source={{ uri: item.image_file_src }}
-              >
-            </Image>
-          </Tile>
-          <View styleName="content">
-            <Tile>
-              <Title>{item.name}</Title>
-              <Caption styleName="md-gutter-top">{item.description}</Caption>
-              <View styleName="horizontal sm-gutter-top">
-                <Title>${item.price}</Title>
-              </View>
-              <View styleName="horizontal sm-gutter-top">
-                <Text>Quantity: {item.quantity}</Text>
-              </View>
-            </Tile>
-            <Button onPress={this.props.editItem.bind(this, item)} styleName="md-gutter-top">
-              <Icon name="edit" />
-              <Text>EDIT</Text>
-            </Button>
+          <View style={styles.centered}>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                source={{ uri: item.image_file_src }}
+                >
+              </Image>
+            </View>
+            <Subtitle styleName="md-gutter-top">{item.description}</Subtitle>
+            <Title styleName="md-gutter-top">${item.price} / {item.unit}</Title>
+            <Caption styleName="md-gutter-bottom">Quantity: {item.quantity}</Caption>
+            <TouchableOpacity style={styles.button} onPress={this.props.editItem.bind(this, item)}>
+              <Text style={styles.buttonText}>EDIT</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

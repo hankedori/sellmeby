@@ -32,14 +32,9 @@ class ItemList extends Component {
               styleName="medium-wide"
               source={{ uri: item.image_file_src  }}
             />
-            <View styleName="content">
-              <Subtitle numberOfLines={2}>{item.name}</Subtitle>
-              <View styleName="horizontal v-center space-between">
-                <View styleName="horizontal">
-                  <Caption styleName="md-gutter-right">${item.price}/{item.unit}</Caption>
-                  <Caption styleName="line-through">${item.price}</Caption>
-                </View>
-              </View>
+            <View>
+              <Subtitle>{item.name}</Subtitle>
+              <Caption>${item.price}/{item.unit}</Caption>
             </View>
           </Card>
         </TouchableOpacity>

@@ -32,7 +32,6 @@ class OrderDetailsScreen extends Component {
                   <Subtitle>{item.name}</Subtitle>
                   <View styleName="horizontal">
                     <Subtitle styleName="md-gutter-right">${item.total_cost}</Subtitle>
-                    <Caption styleName="line-through md-gutter-right">${item.total_cost}</Caption>
                   </View>
                   <View styleName="horizontal">
                     <Caption>Quantity: {item.quantity} | </Caption>
