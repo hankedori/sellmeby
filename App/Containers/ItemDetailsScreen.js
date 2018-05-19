@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, Image, ScrollView, View, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import {
   DropDownMenu,
   Title,

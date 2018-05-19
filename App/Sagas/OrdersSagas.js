@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import OrdersActions from '../Redux/OrdersRedux'
 import { NavigationActions } from 'react-navigation'
+import Toast from 'react-native-simple-toast'
 
 export function * getOrders (api, action) {
   const response = yield call(api.getOrders)
@@ -21,5 +22,6 @@ export function * completeOrder (api, action) {
     yield put(NavigationActions.navigate({ routeName: 'OrdersScreen' }))
   } else {
     yield put(OrdersActions.ordersFailure())
+    Toast.show('An error occured, please try again.');
   }
 }

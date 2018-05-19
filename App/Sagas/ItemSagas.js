@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects'
 import ItemActions from '../Redux/ItemRedux'
 import VendorActions from '../Redux/VendorRedux'
 import { NavigationActions } from 'react-navigation'
+import Toast from 'react-native-simple-toast'
 
 export function * createItem (api, action) {
   const { data } = action
@@ -32,6 +33,7 @@ export function * createItem (api, action) {
       }
     ));
   } else {
+    Toast.show('An error occured: ' + Object.keys(response.data)[0] + Object.values(response.data)[0]);
     yield put(ItemActions.failure())
   }
 }
@@ -67,6 +69,7 @@ export function * updateItem (api, action) {
       }
     ));
   } else {
+    Toast.show('An error occured: ' + Object.keys(response.data)[0] + Object.values(response.data)[0]);
     yield put(ItemActions.failure())
   }
 }

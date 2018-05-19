@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects'
 import VendorActions from '../Redux/VendorRedux'
 import { NavigationActions } from 'react-navigation'
+import Toast from 'react-native-simple-toast'
 
 export function * getVendor (api, action) {
   const { vendor } = action
@@ -12,6 +13,7 @@ export function * getVendor (api, action) {
     yield put(VendorActions.vendorSuccess(response.data.vendor, response.data.items, response.data.hours))
   } else {
     yield put(VendorActions.failure())
+    Toast.show('Something went wrong');
   }
 }
 
@@ -30,6 +32,8 @@ export function * uploadLogo (api, action) {
     yield put(VendorActions.logoSuccess(response.data))
     yield put(VendorActions.vendorRequest())
     yield put(NavigationActions.navigate({ routeName: nextRoute}))
+  } else {
+    Toast.show('Something went wrong, please try again');
   }
 }
 
@@ -46,6 +50,8 @@ export function * updateVendor (api, action) {
     } else {
       yield put(NavigationActions.navigate({ routeName: nextRoute}))
     }
+  } else {
+    Toast.show('Something went wrong, please try again');
   }
 }
 
@@ -62,5 +68,7 @@ export function * updateHours (api, action) {
     } else {
       yield put(NavigationActions.navigate({ routeName: nextRoute}))
     }
+  } else {
+    Toast.show('Something went wrong, please try again');
   }
 }
