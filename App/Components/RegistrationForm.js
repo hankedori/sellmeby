@@ -9,6 +9,10 @@ const renderInput = ({ input: { onChange, ...restInput }}) => {
   return <TextInput styleName='sm-gutter-vertical' placeholder={'EMAIL'} onChangeText={onChange} {...restInput} />
 }
 
+const renderNameInput = ({ input: { onChange, ...restInput }}) => {
+  return <TextInput styleName='sm-gutter-vertical' placeholder={'NAME'} onChangeText={onChange} {...restInput} />
+}
+
 const renderSecureInput = ({ input: { onChange, ...restInput }}) => {
   return <TextInput styleName='sm-gutter-vertical' placeholder={'PASSWORD'} secureTextEntry onChangeText={onChange} {...restInput} />
 }
@@ -22,6 +26,7 @@ class RegistrationForm extends React.Component {
     const { handleSubmit } = this.props
     return (
       <View style={styles.container}>
+        <Field name="name" component={renderNameInput} />
         <Field name="email" component={renderInput} />
         <Field name="password" component={renderSecureInput} />
         <Field name="password_confirmation" component={renderSecureConfirmationInput} />

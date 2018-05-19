@@ -58,7 +58,13 @@ export function * login (api, action) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
     yield put(AuthActions.loginSuccess(response.data))
-    yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
+    if (response.data.data.setup_complete) {
+      yield put(VendorActions.vendorRequest())
+      yield put(NavigationActions.navigate({ routeName: 'MainTabNav'}))
+    } else {
+      yield put(VendorActions.vendorRequest())
+      yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
+    }
   } else {
     yield put(AuthActions.loginFailure())
   }
@@ -86,6 +92,7 @@ export function * register (api, action) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
     yield put(AuthActions.registrationSuccess(response.data))
+    yield put(VendorActions.vendorRequest())
     yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
   } else {
     yield put(AuthActions.registrationFailure())

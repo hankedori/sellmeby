@@ -21,18 +21,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './Styles/NavigationStyles'
 
-const InitialSetupStack = StackNavigator({
-  EditLocationScreen: { screen: EditLocationScreen },
-  EditHoursScreen: { screen: EditHoursScreen },
-  EditDescriptionScreen: { screen: EditDescriptionScreen },
-  LogoUploadScreen: { screen: LogoUploadScreen }
-}, {
-  headerMode: 'float',
-  navigationOptions: {
-    headerTitle: "First time setup"
-  }
-})
-
 const ProfileStack = StackNavigator({
   ProfileScreen: { screen: ProfileScreen },
   EditLocationScreen: { screen: EditLocationScreen },
@@ -138,6 +126,18 @@ const MainTabNav = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     showLabel: false
+  }
+})
+
+const InitialSetupStack = StackNavigator({
+  EditLocationScreen: { screen: EditLocationScreen },
+  EditHoursScreen: { screen: EditHoursScreen },
+  EditDescriptionScreen: { screen: EditDescriptionScreen },
+  LogoUploadScreen: { screen: LogoUploadScreen }
+}, {
+  headerMode: 'float',
+  navigationOptions: {
+    headerTitle: "First time setup"
   }
 })
 

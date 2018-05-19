@@ -41,7 +41,10 @@ class ProfileScreen extends Component {
       <ScrollView>
         <KeyboardAvoidingView behavior='position'>
           <Row>
-            <Title>{this.props.name}</Title>
+            <View styleName='vertical'>
+              <Title>{this.props.name}</Title>
+              <Caption>{this.props.status}</Caption>
+            </View>
           </Row>
           <Divider styleName='line' />
           <TouchableOpacity onPress={this.props.editLogo}>
@@ -73,7 +76,7 @@ class ProfileScreen extends Component {
                 <Subtitle styleName="sm-gutter-bottom">Hours of operation</Subtitle>
                 {
                   this.days.map((day, i) => {
-                    let day_hours = this.props.hours.find(day_hours => day_hours.day === day)
+                    let day_hours = this.props.hours.find(day_hours => day_hours.day === day) || { day: day }
                     if (day_hours && day_hours.open) {
                       return (
                         <Text key={i}>
@@ -112,7 +115,8 @@ const mapStateToProps = (state) => {
     place_id: state.vendor.vendor.place_id,
     address: state.vendor.vendor.address,
     hours: state.vendor.hours,
-    fetching: state.vendor.fetching
+    fetching: state.vendor.fetching,
+    status: state.vendor.vendor.status
   }
 }
 

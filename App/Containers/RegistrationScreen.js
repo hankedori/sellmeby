@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   openLoginScreen: () => dispatch(NavigationActions.navigate({ routeName: 'LoginScreen'})),
   register: (_) => {
-    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation))
+    dispatch(AuthActions.registrationRequest(_.email, _.password, _.password_confirmation, _.name))
   }
 })
 

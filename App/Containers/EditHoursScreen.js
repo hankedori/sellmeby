@@ -31,7 +31,7 @@ class EditHoursScreen extends Component {
   state = {
     params: {
       days: this.days.map((day) => {
-              let day_hours = this.props.hours.find(day_hours => day_hours.day === day);
+              let day_hours = this.props.hours.find(day_hours => day_hours.day === day)
               return {
                 day: day,
                 open: (day_hours && day_hours.open) || false,
