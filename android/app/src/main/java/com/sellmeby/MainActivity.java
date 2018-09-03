@@ -1,4 +1,4 @@
-package com.sellmeby;
+package com.buymeby.sellmeby;
 
 import com.facebook.react.ReactActivity;
 

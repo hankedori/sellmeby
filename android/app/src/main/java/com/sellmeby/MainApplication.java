@@ -1,4 +1,4 @@
-package com.sellmeby;
+package com.buymeby.sellmeby;
 
 import android.app.Application;
 

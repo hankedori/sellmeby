@@ -98,20 +98,20 @@ android {
     buildToolsVersion "23.0.1"
     signingConfigs {
         release {
-            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
-                storeFile file(MYAPP_RELEASE_STORE_FILE)
-                storePassword MYAPP_RELEASE_STORE_PASSWORD
-                keyAlias MYAPP_RELEASE_KEY_ALIAS
-                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            if (project.hasProperty('BUYMEBY_RELEASE_STORE_FILE')) {
+                storeFile file(BUYMEBY_RELEASE_STORE_FILE)
+                storePassword BUYMEBY_RELEASE_STORE_PASSWORD
+                keyAlias BUYMEBY_RELEASE_KEY_ALIAS
+                keyPassword BUYMEBY_RELEASE_KEY_PASSWORD
             }
         }
     }
     defaultConfig {
-        applicationId "com.sellmeby"
+        applicationId "com.buymeby.sellmeby"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
-        versionName "4.0"
+        versionCode 1
+        versionName "0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

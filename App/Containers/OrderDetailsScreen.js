@@ -42,6 +42,13 @@ class OrderDetailsScreen extends Component {
             ))
           }
           <Divider styleName="line" />
+          <Row>
+            <View styleName="horizontal space-between">
+              <Title>Total</Title>
+              <Title styleName="right">{'$' + order.total_amount}</Title>
+            </View>
+          </Row>
+          <Divider styleName="line" />
           { order.status !== 'COMPLETE' &&
             <Button onPress={this.props.completeOrder.bind(this, order.id)}>
               {
