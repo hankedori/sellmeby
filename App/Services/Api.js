@@ -1,9 +1,17 @@
 import apisauce from 'apisauce'
+import { NativeModules } from 'react-native'
+
+let scriptHostname;
+if (__DEV__) {
+    const scriptURL = NativeModules.SourceCode.scriptURL;
+    scriptHostname = scriptURL.split('://')[1].split(':')[0];
+}
 
 // const create = (baseURL = 'http://10.0.2.2:3000/api/sellmeby/') => {
-const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
+// const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
 // const create = (baseURL = 'https://buymeby-dev.cfapps.io/api/sellmeby/') => {
 // const create = (baseURL = 'https://buymeby-prod.cfapps.io/api/sellmeby/') => {
+const create = (baseURL = `http://${scriptHostname}:3000/api/sellmeby/`) => {
 
   const api = apisauce.create({
     baseURL,
@@ -19,6 +27,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
   const registerVendor = (userAttributes) => api.post('auth', userAttributes)
   const loginVendor = (credentials) => api.post('auth/sign_in', credentials)
   const verifyToken = (tokenParams) => api.get('auth/validate_token', tokenParams)
+  const registerDevice = (token) => api.post('push', token)
 
   const getVendor = () => api.get('vendors')
   const updateVendor = (params) => api.patch('vendors', params)
@@ -38,6 +47,7 @@ const create = (baseURL = 'http://localhost:3000/api/sellmeby/') => {
     registerVendor,
     loginVendor,
     verifyToken,
+    registerDevice,
     getVendor,
     uploadLogo,
     updateVendor,

@@ -1,8 +1,10 @@
 import { call, put } from 'redux-saga/effects'
-import AuthActions from '../Redux/AuthRedux'
-import VendorActions from '../Redux/VendorRedux'
 import { NavigationActions } from 'react-navigation'
 import { AsyncStorage } from 'react-native'
+
+import AuthActions from '../Redux/AuthRedux'
+import VendorActions from '../Redux/VendorRedux'
+import * as PushNotification from '../Config/PushNotification'
 
 const authHeaderKeys: Array<string> = [
   'access-token',
@@ -24,6 +26,7 @@ export function * verifyToken (api, action) {
     if (response.ok) {
       setAuthHeaders(response.headers, api)
       persistAuthHeadersInDeviceStorage(response.headers)
+      PushNotification.configure(api)
       yield put(AuthActions.tokenSuccess(response.data))
       if (response.data.data.setup_complete) {
         yield put(VendorActions.vendorRequest())
@@ -57,6 +60,7 @@ export function * login (api, action) {
   if (response.ok) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
+    PushNotification.configure(api)
     yield put(AuthActions.loginSuccess(response.data))
     if (response.data.data.setup_complete) {
       yield put(VendorActions.vendorRequest())
@@ -91,6 +95,7 @@ export function * register (api, action) {
   if (response.ok) {
     setAuthHeaders(response.headers, api)
     persistAuthHeadersInDeviceStorage(response.headers)
+    PushNotification.configure(api)
     yield put(AuthActions.registrationSuccess(response.data))
     yield put(VendorActions.vendorRequest())
     yield put(NavigationActions.navigate({ routeName: 'InitialSetupStack'}))
