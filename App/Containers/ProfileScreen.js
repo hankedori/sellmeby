@@ -99,7 +99,7 @@ class ProfileScreen extends Component {
               </View>
               <Icon styleName="disclosure" name="right-arrow" />
             </Row>
-            </TouchableOpacity>
+          </TouchableOpacity>
             <Divider styleName='line' />
             <Row>
               <Subtitle styleName="sm-gutter-bottom">Accepting pre-orders</Subtitle>
