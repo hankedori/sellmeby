@@ -25,9 +25,13 @@ import styles from './Styles/ProfileScreenStyle'
 
 class ProfileScreen extends Component {
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  state = {
+      accepting_orders: this.props.vendor.accepting_orders
+  };
 
   render () {
     let image_source = this.props.logo_url? {uri: this.props.logo_url} : require('../Images/logo_missing.png')
+    const switchOn = this.state.accepting_orders
 
     if (this.props.fetching) {
       return(
@@ -96,6 +100,15 @@ class ProfileScreen extends Component {
               <Icon styleName="disclosure" name="right-arrow" />
             </Row>
           </TouchableOpacity>
+            <Divider styleName='line' />
+            <Row>
+              <Subtitle styleName="sm-gutter-bottom">Accepting pre-orders</Subtitle>
+              <Switch
+                onValueChange={value => {
+                  this.setState({ accepting_orders: value })
+                }}
+                value={switchOn}/>
+            </Row>
           <Button onPress={this.props.logout} styleName="md-gutter-top">
             <Text>LOGOUT</Text>
           </Button>
@@ -107,6 +120,7 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    vendor: state.vendor.vendor,
     name: state.vendor.vendor.name,
     logo_url: state.vendor.vendor.logo_url,
     description: state.vendor.vendor.description,

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 export default class SplashScreen extends Component {
 
   render () {
-    const logo = require('../Images/splash.png');
+    const logo = require('../Images/Splash.png');
     return (
       <View style={styles.container}>
         <Image
